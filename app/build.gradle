@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.parktown_manufacturers_ppe_tracking_application'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.parktown_manufacturers_ppe_tracking_application"
         minSdk 28
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 

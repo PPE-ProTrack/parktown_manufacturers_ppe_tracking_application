@@ -2,6 +2,7 @@ name: Android Build
 
 on: pull_request
 
+
 jobs:
   test_job:
     name: Test
@@ -31,6 +32,19 @@ jobs:
         with:
           name: test-reports
           path: '**/build/reports/tests/'
+
+    lint:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout the code
+          uses: actions/checkout@v2
+
+        - name: Upload html test report
+          uses: actions/upload-artifact@v2
+          with:
+            name: lint.html
+            path: 'app/build/reports/lint-results-debug.html'
+            if-no-files-found: warn
 
 
 
