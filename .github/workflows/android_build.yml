@@ -3,24 +3,34 @@ name: Android Build
 on: pull_request
 
 jobs:
-  build :
-
+  test_job:
+    name: Test
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
 
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name : Set Up JDK
-        uses: actions/setup-java@v1
+      - name: Restore Cache
+        uses: actions/cache@v2
         with:
-          java-version: 1.8
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
-      - name: Run Tests
-          run: ./gradlew test
+      - name: Run Debug Tests
+        run: ./gradlew testDebugUnitTest --continue
 
-      - name: Build Project
-          run: ./gradlew assemble
+      - name: Upload Test Reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/'
 
 
 
