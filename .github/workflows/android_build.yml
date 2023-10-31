@@ -34,6 +34,7 @@ jobs:
           path: '**/build/reports/tests/'
 
     lint:
+      name: lintTest
       runs-on: ubuntu-latest
       steps:
         - name: Checkout the code
