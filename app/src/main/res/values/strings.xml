@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">Parktown_Manufacturers_PPE_Tracking_Application</string>
+
+    <!-- nav strings -->
+    <string name="menu_Dashboard">Dashboard</string>
+    <string name="menu_ppeitems">PPE Items</string>
+    <string name="menu_departments">Departments</string>
+    <string name="menu_issuance">Issuance</string>
+    <string name="menu_employee">Employee</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_profile">Profile</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">close navigation drawer</string>
+
+    <!-- signup strings -->
+
+    <string name="ek_img_content">ExportKit Image</string>
+    <string name="first_name__string">First Name:</string>
+    <string name="firstname_edittext_string">Name</string>
+    <string name="last_name__string">Last Name:</string>
+    <string name="lastname_edittext_string">Last Name</string>
+    <string name="work_email__string">Work Email:</string>
+    <string name="email_editext_string">Email</string>
+    <string name="password__string">Password:</string>
+    <string name="password_edittext_string">Password</string>
+    <string name="confirm_password__string">Confirm Password:</string>
+    <string name="confirmpassword_edittext_string">Password</string>
+    <string name="request_string">REQUEST</string>
+    <string name="already_have_an_account__string"><u>Already have an account?</u></string>
+    <string name="dont_have_an_account__string"><u>Dont have an account?</u></string>
+    <string name="signuplabel_string">Sign Up</string>
+    <string name="signinlabel_string">Sign In</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+
 </resources>

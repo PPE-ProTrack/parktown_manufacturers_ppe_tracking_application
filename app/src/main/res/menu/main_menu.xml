@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/nav_dashboard"
+            android:checkable="true"
+            android:enabled="true"
+            android:icon="@drawable/icon_home_"
+            android:title="@string/menu_Dashboard" />
+        <item
+            android:id="@+id/nav_employee"
+            android:checkable="true"
+            android:enabled="true"
+            android:icon="@drawable/wrench"
+            android:title="@string/menu_employee" />
+        <item
+            android:id="@+id/nav_ppe_items"
+            android:checkable="true"
+            android:enabled="true"
+            android:icon="@drawable/icon_clipboard_check"
+            android:title="@string/menu_ppeitems" />
+        <item
+            android:id="@+id/nav_departments"
+            android:icon="@drawable/icon_table_rows"
+            android:title="@string/menu_departments" />
+        <item
+            android:id="@+id/nav_issuance"
+            android:icon="@drawable/icon_send"
+            android:title="@string/menu_issuance" />
+        <item
+            android:id="@+id/nav_settings"
+            android:checkable="true"
+            android:enabled="true"
+            android:icon="@drawable/icon_settings_"
+            android:title="@string/menu_settings" />
+
+
+
+    </group>
+</menu>
