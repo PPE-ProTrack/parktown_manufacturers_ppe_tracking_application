@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.firebase.database.*
@@ -59,7 +60,44 @@ class AddEmployeeActivity : AppCompatActivity() {
 
         // Initialize Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance().reference.child("employees")
+        empID(databaseReference)
 
+
+        btnSave.setOnClickListener {
+
+            saveBtn()
+
+        }
+
+    }
+
+    private fun saveBtn(){
+
+        // Create an instance of EmployeeData with values from EditTexts
+        val employeeData = EmployeeData(
+            empIdEditText.text.toString().toInt(),
+            empNameEditText.text.toString(),
+            empSurnameEditText.text.toString(),
+            empDepartmentIdEditText.text.toString().toInt(),
+            empDepartmentNameEditText.text.toString()
+        )
+
+        // Push the data to Firebase Realtime Database
+        val newEmployeeReference = databaseReference.push()
+        newEmployeeReference.setValue(employeeData, object : DatabaseReference.CompletionListener {
+            override fun onComplete(databaseError: DatabaseError?, databaseReference: DatabaseReference) {
+                if (databaseError == null) {
+                    // Data saved successfully
+                    // You can add any logic here that should execute after the data is saved
+                } else {
+                    // Handle the error
+                    // You can log the error or show a message to the user
+                }
+            }
+        })
+    }
+
+    private fun empID(databaseReference : DatabaseReference ){
         // Query the database to find the highest existing employee ID
         databaseReference.orderByChild("employeeId").limitToLast(1)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -82,32 +120,5 @@ class AddEmployeeActivity : AppCompatActivity() {
                     // You can log the error or show a message to the user
                 }
             })
-        btnSave.setOnClickListener {
-            // Create an instance of EmployeeData with values from EditTexts
-            val employeeData = EmployeeData(
-                empIdEditText.text.toString().toInt(),
-                empNameEditText.text.toString(),
-                empSurnameEditText.text.toString(),
-                empDepartmentIdEditText.text.toString().toInt(),
-                empDepartmentNameEditText.text.toString()
-            )
-
-            // Push the data to Firebase Realtime Database
-            val newEmployeeReference = databaseReference.push()
-            newEmployeeReference.setValue(employeeData, object : DatabaseReference.CompletionListener {
-                override fun onComplete(databaseError: DatabaseError?, databaseReference: DatabaseReference) {
-                    if (databaseError == null) {
-                        // Data saved successfully
-                        // You can add any logic here that should execute after the data is saved
-
-                    } else {
-                        // Handle the error
-                        // You can log the error or show a message to the user
-                    }
-                }
-            })
-
-        }
-
     }
 }
