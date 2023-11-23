@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="department_ids">
+        <item>1000</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>5000</item>
+        <item>6000</item>
+        <item>7000</item>
+        <item>8000</item>
+        <item>9000</item>
+    </array>
+
+    <array name="department_names">
+        <item>dept-1</item>
+        <item>dept-2</item>
+        <item>dept-3</item>
+        <item>dept-4</item>
+        <item>dept-5</item>
+        <item>dept-6</item>
+        <item>dept-7</item>
+        <item>dept-8</item>
+        <item>dept-9</item>
+    </array>
+</resources>

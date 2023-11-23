@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "595364085692",
+    "firebase_url": "https://ppe-protrack-default-rtdb.firebaseio.com",
+    "project_id": "ppe-protrack",
+    "storage_bucket": "ppe-protrack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595364085692:android:a9ade3db2401254a93f5b9",
+        "android_client_info": {
+          "package_name": "com.example.parktown_manufacturers_ppe_tracking_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK2RTthXeD0wTwILd-bx11OR0wn1l0E9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595364085692:android:14ad352b29d9e10893f5b9",
+        "android_client_info": {
+          "package_name": "com.example.ppe_pro_track"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDK2RTthXeD0wTwILd-bx11OR0wn1l0E9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

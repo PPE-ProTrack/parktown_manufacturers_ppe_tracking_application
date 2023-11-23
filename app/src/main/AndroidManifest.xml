@@ -9,10 +9,49 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Parktown_Manufacturers_PPE_Tracking_Application"
+        android:theme="@style/Theme.PPE_Pro_Track"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".PPEItemManagement.AddPpeItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PPEItemManagement.PpeItemsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Issuance.RecordIssuanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Issuance.IssuanceRecords.RecordsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Issuance.IssuancePendingReturns.PendingReturnsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Employee.EmployeeDetails.EmployeeDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Employee.AddEmployeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Employee.EmployeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Department.AddDepartmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Department.DepartmentDetails.DepartmentDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Department.DepartmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Dashboard.DashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginRegister.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +59,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
