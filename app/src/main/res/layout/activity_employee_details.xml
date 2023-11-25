@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/bg_shape"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginTop="5dp">
@@ -240,6 +240,40 @@
 
                 <TextView
                     android:id="@+id/department_name_textview"
+                    android:layout_width="290.6dp"
+                    android:layout_height="37.6dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="5dp"
+                    android:text="Engineering"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/emp_infringements_view"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/firstname_view_shape"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/department_name_view">
+
+                <TextView
+                    android:id="@+id/emp_infringements_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20.6dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:text="View Infringements:"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/emp_infringements_btn"
                     android:layout_width="290.6dp"
                     android:layout_height="37.6dp"
                     android:layout_marginLeft="20dp"

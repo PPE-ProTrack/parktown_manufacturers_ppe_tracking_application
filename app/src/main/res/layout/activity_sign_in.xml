@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <LinearLayout
         android:id="@+id/workemail_view"
         android:layout_width="330dp"
         android:layout_height="61dp"
@@ -29,68 +29,76 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signuplabel" />
+        app:layout_constraintTop_toBottomOf="@+id/signuplabel"
+        android:orientation="vertical"
+        android:paddingStart="10dp">
 
-    <TextView
-        android:id="@+id/work_email_"
-        android:layout_width="109.6dp"
-        android:layout_height="20.6dp"
-        android:text="@string/work_email__string"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/workemail_view"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="@+id/workemail_view"
-        app:layout_constraintTop_toTopOf="@+id/workemail_view" />
+        <TextView
+            android:id="@+id/work_email_"
+            android:layout_width="109.6dp"
+            android:layout_height="20.6dp"
+            android:text="@string/work_email__string"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/workemail_view"
+            app:layout_constraintHorizontal_bias="0.068"
+            app:layout_constraintStart_toStartOf="@+id/workemail_view"
+            app:layout_constraintTop_toTopOf="@+id/workemail_view" />
 
-    <EditText
-        android:id="@+id/email_editext"
-        android:layout_width="290.6dp"
-        android:layout_height="37.6dp"
-        android:alpha="0.25"
-        android:hint="@string/email_editext_string"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/workemail_view"
-        app:layout_constraintHorizontal_bias="0.384"
-        app:layout_constraintStart_toStartOf="@+id/workemail_view"
-        app:layout_constraintTop_toBottomOf="@+id/work_email_" />
+        <EditText
+            android:id="@+id/email_editext"
+            android:layout_width="290.6dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_editext_string"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/workemail_view"
+            app:layout_constraintHorizontal_bias="0.384"
+            app:layout_constraintStart_toStartOf="@+id/workemail_view"
+            app:layout_constraintTop_toBottomOf="@+id/work_email_" />
+    </LinearLayout>
 
-    <View
+
+
+    <LinearLayout
         android:id="@+id/password_view"
         android:layout_width="330dp"
-        android:layout_height="61dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:background="@drawable/password_view_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/workemail_view" />
+        app:layout_constraintTop_toBottomOf="@+id/workemail_view"
+        android:orientation="vertical"
+        android:paddingStart="10dp">
 
-    <TextView
-        android:id="@+id/password_"
-        android:layout_width="109.6dp"
-        android:layout_height="20.6dp"
-        android:text="@string/password__string"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/password_view"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="@+id/password_view"
-        app:layout_constraintTop_toTopOf="@+id/password_view" />
+        <TextView
+            android:id="@+id/password_"
+            android:layout_width="109.6dp"
+            android:layout_height="20.6dp"
+            android:text="@string/password__string"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/password_view"
+            app:layout_constraintHorizontal_bias="0.068"
+            app:layout_constraintStart_toStartOf="@+id/password_view"
+            app:layout_constraintTop_toTopOf="@+id/password_view" />
 
-    <EditText
-        android:id="@+id/password_edittext"
-        android:layout_width="290.6dp"
-        android:layout_height="37.6dp"
-        android:alpha="0.25"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/password_view"
-        app:layout_constraintHorizontal_bias="0.358"
-        app:layout_constraintStart_toStartOf="@+id/password_view"
-        app:layout_constraintTop_toBottomOf="@+id/password_" />
+        <EditText
+            android:id="@+id/password_edittext"
+            android:layout_width="290.6dp"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/password_view"
+            app:layout_constraintHorizontal_bias="0.358"
+            app:layout_constraintStart_toStartOf="@+id/password_view"
+            app:layout_constraintTop_toBottomOf="@+id/password_" />
+    </LinearLayout>
+
+
 
     <Button
         android:id="@+id/login_button"
@@ -98,7 +106,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="112dp"
         android:background="@drawable/request_button"
-        android:text="Login"
+        android:text="Sign In"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

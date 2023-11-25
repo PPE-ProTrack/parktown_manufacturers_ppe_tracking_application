@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeData
+import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeDetails.Infringements.InfringementsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.firebase.database.*
 
@@ -21,7 +22,7 @@ class EmployeeDetailsActivity : AppCompatActivity() {
     private lateinit var databaseReference: DatabaseReference
 
     private lateinit var backButton: Button
-
+    private lateinit var empInfringementsBtn: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_employee_details)
@@ -34,14 +35,30 @@ class EmployeeDetailsActivity : AppCompatActivity() {
         empDepartmentNameTextView = findViewById(R.id.department_name_textview)
 
         backButton = findViewById(R.id.employee_details_backbutton)
+        empInfringementsBtn = findViewById(R.id.emp_infringements_btn)
+
+        // Retrieve empId from the Intent
+        val empId = intent.getIntExtra("empId", 0)
+
+
+        empInfringementsBtn.setOnClickListener {
+
+            // Create an intent to start EmployeeDetailsActivity
+            val intent = Intent(this, InfringementsActivity::class.java)
+
+            // Pass the empId as an extra to EmployeeDetailsActivity
+            intent.putExtra("empId", empId)
+
+            // Start EmployeeDetailsActivity
+            startActivity(intent)
+        }
 
         backButton.setOnClickListener {
             val intent = Intent(this, EmployeeActivity::class.java)
             startActivity(intent)
         }
 
-        // Retrieve empId from the Intent
-        val empId = intent.getIntExtra("empId", 0)
+
 
         // Initialize Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance().reference.child("employees")

@@ -18,16 +18,16 @@ class AddEmployeeActivity : AppCompatActivity() {
     private lateinit var empSurnameEditText : EditText
     private lateinit var empDepartmentIdEditText : EditText
     private lateinit var empDepartmentNameEditText : EditText
-    private lateinit var btnSave: Button
+    lateinit var btnSave: Button
     private lateinit var toolbar : Toolbar
    // private lateinit var progressbar: ProgressBar
 
     // Reference to the Firebase Realtime Database
     private lateinit var databaseReference: DatabaseReference
 
-    private lateinit var backButton: Button
+    lateinit var backButton: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_employee)
 
@@ -71,7 +71,7 @@ class AddEmployeeActivity : AppCompatActivity() {
 
     }
 
-    private fun saveBtn(){
+    fun saveBtn(){
 
         // Create an instance of EmployeeData with values from EditTexts
         val employeeData = EmployeeData(
@@ -97,7 +97,7 @@ class AddEmployeeActivity : AppCompatActivity() {
         })
     }
 
-    private fun empID(databaseReference : DatabaseReference ){
+    fun empID(databaseReference : DatabaseReference ){
         // Query the database to find the highest existing employee ID
         databaseReference.orderByChild("employeeId").limitToLast(1)
             .addListenerForSingleValueEvent(object : ValueEventListener {

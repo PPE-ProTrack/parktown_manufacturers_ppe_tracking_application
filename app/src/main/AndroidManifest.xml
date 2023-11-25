@@ -12,10 +12,10 @@
         android:theme="@style/Theme.PPE_Pro_Track"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".Employee.EmployeeDetails.Infringements.InfringementsActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".Profile.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".PPEItemManagement.AddPpeItemActivity"
