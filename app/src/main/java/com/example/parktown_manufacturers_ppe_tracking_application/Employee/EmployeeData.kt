@@ -2,6 +2,7 @@ package com.example.parktown_manufacturers_ppe_tracking_application.Employee
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemData
 
 class EmployeeData (
     val employeeId: Int,
@@ -9,6 +10,7 @@ class EmployeeData (
     val employeeSurname: String,
     val departmentId : Int,
     val departmentName: String,
+
 ) : Parcelable {
     constructor() : this(0,"", "", 0, "")
 
@@ -18,7 +20,9 @@ class EmployeeData (
         parcel.readString() ?: "",
         parcel.readInt(),
         parcel.readString() ?: "",
-
+//        mutableListOf<PpeItemData>().apply {
+//            parcel.readList(this, PpeItemData::class.java.classLoader)
+//        }
         )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -27,6 +31,7 @@ class EmployeeData (
         parcel.writeString(employeeSurname)
         parcel.writeInt(departmentId)
         parcel.writeString(departmentName)
+        //parcel.writeList(infringements)
 
 
     }
