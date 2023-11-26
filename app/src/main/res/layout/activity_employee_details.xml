@@ -195,17 +195,17 @@
                 app:layout_constraintTop_toBottomOf="@id/employee_surname_view">
 
                 <TextView
-                    android:id="@+id/department_id_"
+                    android:id="@+id/employee_full_name_"
                     android:layout_width="wrap_content"
                     android:layout_height="20.6dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
-                    android:text="Department ID:"
+                    android:text="Employee Full Name:"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/department_id_textview"
+                    android:id="@+id/employee_full_name_textview"
                     android:layout_width="290.6dp"
                     android:layout_height="37.6dp"
                     android:layout_marginLeft="20dp"

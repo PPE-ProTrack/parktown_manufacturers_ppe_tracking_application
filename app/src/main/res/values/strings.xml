@@ -32,4 +32,6 @@
     <string name="signinlabel_string">Sign In</string>
     <string name="title_activity_sign_in">SignInActivity</string>
 
+    <string name="select_department">Select a Department</string>
+
 </resources>

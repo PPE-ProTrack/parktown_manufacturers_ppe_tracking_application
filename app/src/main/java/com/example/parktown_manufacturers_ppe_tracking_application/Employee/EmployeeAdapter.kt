@@ -28,7 +28,7 @@ class EmployeeAdapter (
         val currentItem = employeeList[position]
         holder.employeeName.text = currentItem.employeeName
         holder.employeeID.text = currentItem.employeeId.toString()
-        holder.departmentID.text = currentItem.departmentId.toString()
+        holder.departmentName.text = currentItem.departmentName
 
         // Set click listener for the whole item
         holder.itemView.setOnClickListener {
@@ -40,7 +40,7 @@ class EmployeeAdapter (
     class EmployeeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val employeeName: TextView = itemView.findViewById(R.id.empName_TextView)
         val employeeID: TextView = itemView.findViewById(R.id.employeeID_TextView)
-        val departmentID: TextView = itemView.findViewById(R.id.departmentID_TextView)
+        val departmentName: TextView = itemView.findViewById(R.id.departmentName_TextView)
 
     }
 }

@@ -3,13 +3,12 @@ package com.example.parktown_manufacturers_ppe_tracking_application
 //package com.example.parktown_manufacturers_ppe_tracking_application.Employee
 
 import android.content.Intent
-import android.os.Build
+import android.text.Editable
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import androidx.appcompat.widget.Toolbar
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.AddEmployeeActivity
-import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeData
-import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeDetails.EmployeeDetailsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.firebase.database.*
 import org.junit.Before
@@ -18,13 +17,11 @@ import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.InjectMocks
 import org.mockito.Mock
-import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import android.text.Editable
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
-
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 
 @RunWith(MockitoJUnitRunner::class)
 class AddEmployeeActivityTest {
@@ -42,16 +39,16 @@ class AddEmployeeActivityTest {
     private lateinit var empSurnameEditText: EditText
 
     @Mock
-    private lateinit var empDepartmentIdEditText: EditText
-
-    @Mock
-    private lateinit var empDepartmentNameEditText: EditText
-
-    @Mock
     private lateinit var btnSave: Button
 
     @Mock
     private lateinit var backButton: Button
+
+    @Mock
+    private lateinit var empDepartmentNameSpinner: Spinner
+
+    @Mock
+    private lateinit var toolbar: Toolbar
 
     @InjectMocks
     private lateinit var activity: AddEmployeeActivity
@@ -63,10 +60,6 @@ class AddEmployeeActivityTest {
 
     @Test
     fun `test saveBtn method`() {
-
-        `when`(empIdEditText.text).thenReturn(mock(Editable::class.java).apply {
-            `when`(toString()).thenReturn("1")
-        })
         `when`(empNameEditText.text).thenReturn(mock(Editable::class.java).apply {
             `when`(toString()).thenReturn("John")
         })
@@ -75,20 +68,21 @@ class AddEmployeeActivityTest {
             `when`(toString()).thenReturn("Doe")
         })
 
-        `when`(empDepartmentIdEditText.text).thenReturn(mock(Editable::class.java).apply {
-            `when`(toString()).thenReturn("123")
-        })
+        `when`(empDepartmentNameSpinner.selectedItem.toString()).thenReturn("Welding")
 
-        `when`(empDepartmentNameEditText.text).thenReturn(mock(Editable::class.java).apply {
-            `when`(toString()).thenReturn("IT")
-        })
+        val dataSnapshot = mock(DataSnapshot::class.java)
+        `when`(databaseReference.orderByChild("employeeFullName")).thenReturn(databaseReference)
+        `when`(databaseReference.equalTo("John Doe")).thenReturn(databaseReference)
 
-        val newEmployeeReference = mock(DatabaseReference::class.java)
-        `when`(databaseReference.push()).thenReturn(newEmployeeReference)
+        `when`(databaseReference.addListenerForSingleValueEvent(any(ValueEventListener::class.java))).thenAnswer {
+            val valueEventListener = it.arguments[0] as ValueEventListener
+            valueEventListener.onDataChange(dataSnapshot)
+            null
+        }
 
         activity.saveBtn()
 
-        verify(newEmployeeReference).setValue(any(EmployeeData::class.java), any(DatabaseReference.CompletionListener::class.java))
+        verify(databaseReference).push()
     }
 
     @Test
@@ -148,8 +142,7 @@ class AddEmployeeActivityTest {
         verify(activity).findViewById<EditText>(R.id.empId_EditText)
         verify(activity).findViewById<EditText>(R.id.empName_EditText)
         verify(activity).findViewById<EditText>(R.id.empSurname_EditText)
-        verify(activity).findViewById<EditText>(R.id.empDepartmentId_EditText)
-        verify(activity).findViewById<EditText>(R.id.empDepartmentName_EditText)
+        verify(activity).findViewById<Spinner>(R.id.departmentName_Spinner)
 
         verify(activity).empID(databaseReference)
         verify(activity.btnSave).setOnClickListener(any())

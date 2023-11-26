@@ -15,7 +15,7 @@ class EmployeeDetailsActivity : AppCompatActivity() {
     private lateinit var empIdTextView : TextView
     private lateinit var empNameTextView : TextView
     private lateinit var empSurnameTextView : TextView
-    private lateinit var empDepartmentIdTextView : TextView
+    private lateinit var empFullNameTextView : TextView
     private lateinit var empDepartmentNameTextView : TextView
 
     // Reference to the Firebase Realtime Database
@@ -31,7 +31,7 @@ class EmployeeDetailsActivity : AppCompatActivity() {
         empIdTextView = findViewById(R.id.employee_id_textview)
         empNameTextView = findViewById(R.id.employee_name_textview)
         empSurnameTextView = findViewById(R.id.employee_surname_textview)
-        empDepartmentIdTextView = findViewById(R.id.department_id_textview)
+        empFullNameTextView = findViewById(R.id.employee_full_name_textview)
         empDepartmentNameTextView = findViewById(R.id.department_name_textview)
 
         backButton = findViewById(R.id.employee_details_backbutton)
@@ -79,7 +79,7 @@ class EmployeeDetailsActivity : AppCompatActivity() {
                             empIdTextView.text = it.employeeId.toString()
                             empNameTextView.text = it.employeeName
                             empSurnameTextView.text = it.employeeSurname
-                            empDepartmentIdTextView.text = it.departmentId.toString()
+                            empFullNameTextView.text = it.employeeFullName
                             empDepartmentNameTextView.text = it.departmentName
                         }
                     }
