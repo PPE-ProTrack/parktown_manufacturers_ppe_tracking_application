@@ -8,14 +8,16 @@ class EmployeeData (
     val employeeId: Int,
     val employeeName: String,
     val employeeSurname: String,
+    val employeeFullName: String,
     val departmentId : Int,
     val departmentName: String,
 
 ) : Parcelable {
-    constructor() : this(0,"", "", 0, "")
+    constructor() : this(0,"", "","", 0, "")
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readInt(),
@@ -29,6 +31,7 @@ class EmployeeData (
         parcel.writeInt(employeeId)
         parcel.writeString(employeeName)
         parcel.writeString(employeeSurname)
+        parcel.writeString(employeeFullName)
         parcel.writeInt(departmentId)
         parcel.writeString(departmentName)
         //parcel.writeList(infringements)

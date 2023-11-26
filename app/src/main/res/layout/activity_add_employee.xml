@@ -44,10 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="New Employee"
+            android:text="Add New Employee"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -70,27 +71,27 @@
                 android:padding="16dp">
 
                 <!-- Location Label -->
-                <TextView
-                    android:id="@+id/empDepartmentId_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Department ID:"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/empDepartmentId_TextView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Department ID:"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginStart="16dp"/>-->
 
-                <!-- Location Input -->
-                <EditText
-                    android:id="@+id/empDepartmentId_EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/primary_grey"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="16dp"
-                    android:hint="Department ID"/>
+<!--                <Spinner-->
+<!--                    android:id="@+id/empDepartmentId_Spinner"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColorHint="@color/primary_grey"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:prompt="@string/select_department"-->
+<!--                    />-->
 
                 <!-- Location Label -->
                 <TextView
@@ -104,8 +105,8 @@
                     android:layout_marginStart="16dp"/>
 
                 <!-- Location Input -->
-                <EditText
-                    android:id="@+id/empDepartmentName_EditText"
+                <Spinner
+                    android:id="@+id/departmentName_Spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColorHint="@color/primary_grey"
@@ -113,8 +114,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginStart="16dp"
-
-                    android:hint="Department Name"
+                    android:prompt="@string/select_department"
                     />
 
                 <TextView
