@@ -19,6 +19,10 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.Issu
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener , PpeItemAdapter.OnItemClickListener {
 
@@ -26,6 +30,9 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var navigationView : NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var progressbar: ProgressBar
+    private lateinit var ppeItemAdapter: PpeItemAdapter
+    private val ppeItemsList: MutableList<PpeItemData> = mutableListOf()
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +44,8 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         progressbar = findViewById(R.id.progressBar)
         progressbar.bringToFront()
         progressbar.visibility = View.VISIBLE
+        recyclerView = findViewById(R.id.ppeItem_RecyclerView)
+
 
         //Setting the name of the page in the toolbar
         toolbar.setTitle("PPE Items")
@@ -54,10 +63,16 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         navigationView.setNavigationItemSelectedListener(this)
 
-        val recyclerView: RecyclerView = findViewById(R.id.ppeItem_RecyclerView)
 
-        recyclerView.adapter = PpeItemAdapter(ppeItemsManager.ppeItemsList, this)
+// Initialize RecyclerView and Adapter
+        ppeItemAdapter = PpeItemAdapter(ppeItemsList, this)
+        recyclerView.adapter = ppeItemAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        loadPpeItemsFromFirebase()
+//        recyclerView.adapter = PpeItemAdapter(ppeItemsList, this)
+//        recyclerView.layoutManager = LinearLayoutManager(this)
+
         progressbar.visibility = View.GONE
 
         val fabAddObservation: FloatingActionButton = findViewById(R.id.AddPpeItems_FloatingActionButton)
@@ -98,42 +113,46 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
 
-    object ppeItemsManager{
+    private fun loadPpeItemsFromFirebase() {
+        progressbar.visibility = View.VISIBLE
 
-        val ppeItemsList: MutableList<PpeItemData> = mutableListOf(
-            PpeItemData(
-                itemId = "1",
-                description = "Item 1 Description",
-                total = 10,
-                available = 5,
-                allocationRules = "Rules for Item 1"
-            ),
-            PpeItemData(
-                itemId = "2",
-                description = "Item 2 Description",
-                total = 15,
-                available = 7,
-                allocationRules = "Rules for Item 2"
-            ),
-            PpeItemData(
-                itemId = "3",
-                description = "Item 3 Description",
-                total = 20,
-                available = 12,
-                allocationRules = "Rules for Item 3"
-            ),
-            PpeItemData(
-                itemId = "4",
-                description = "Item 4 Description",
-                total = 8,
-                available = 3,
-                allocationRules = "Rules for Item 4"
-            )
-        )
+        val databaseReference = FirebaseDatabase.getInstance().reference.child("ppeItems")
 
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val newPpeItemsList = mutableListOf<PpeItemData>()
+
+                for (ppeItemSnapshot in dataSnapshot.children) {
+                    val itemName = ppeItemSnapshot.child("itemName").getValue(String::class.java)
+                    val total = ppeItemSnapshot.child("total").getValue(Int::class.java)
+                    val available = ppeItemSnapshot.child("available").getValue(Int::class.java)
+
+                    if ( itemName != null && total != null && available != null) {
+                        val ppeItemData = PpeItemData(itemName, total, available)
+                        newPpeItemsList.add(ppeItemData)
+                    }
+                }
+
+                // Directly manipulate the list in the activity
+                ppeItemsList.clear()
+                ppeItemsList.addAll(newPpeItemsList)
+
+                if (newPpeItemsList.isEmpty()) {
+                    // Handle empty list scenario if needed
+                }
+
+                // Notify the adapter that the data set has changed
+                ppeItemAdapter.notifyDataSetChanged()
+
+                progressbar.visibility = View.GONE
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                progressbar.visibility = View.GONE
+                // Handle onCancelled scenario if needed
+            }
+        })
     }
-
-
 
     override fun onItemClick(position: Int) {
         TODO("Not yet implemented")

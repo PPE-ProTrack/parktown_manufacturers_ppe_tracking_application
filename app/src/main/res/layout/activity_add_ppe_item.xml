@@ -49,7 +49,8 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            />
 
 
         <androidx.cardview.widget.CardView
@@ -66,7 +67,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                >
 
                 <TextView
                     android:id="@+id/ppeItemId_TextView"
@@ -76,7 +78,8 @@
                     android:textSize="24sp"
                     android:textColor="@color/black"
                     android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp" />
+                    android:layout_marginStart="16dp"
+                    android:visibility="gone"/>
 
                 <!-- Species Name Input -->
                 <EditText
@@ -87,7 +90,8 @@
                     android:textColorHint="@color/primary_grey"
                     android:textColor="@color/black"
                     android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
+                    android:layout_marginStart="16dp"
+                    android:visibility="gone"/>
 
                 <!-- Title -->
                 <TextView
@@ -131,36 +135,41 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:clickable="false"
+
                     />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:progressBackgroundTint="@color/_bg_color"/>
 
 
                 <!-- Location Label -->
-                <TextView
-                    android:id="@+id/ppeItemDepartment_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Department:"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"/>
+<!--                <TextView-->
+<!--                    android:id="@+id/ppeItemDepartment_TextView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Department:"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginStart="16dp"/>-->
 
-                <!-- Location Input -->
-                <EditText
-                    android:id="@+id/ppeItemDepartment_EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/primary_grey"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="16dp"
-                    android:focusable="false"
-                    android:clickable="false"
-                    />
+<!--                &lt;!&ndash; Location Input &ndash;&gt;-->
+<!--                <EditText-->
+<!--                    android:id="@+id/ppeItemDepartment_EditText"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColorHint="@color/primary_grey"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:focusable="false"-->
+<!--                    android:clickable="false"-->
+<!--                    />-->
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

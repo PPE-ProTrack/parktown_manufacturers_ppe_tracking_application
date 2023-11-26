@@ -2,6 +2,8 @@ package com.example.parktown_manufacturers_ppe_tracking_application.Issuance.Iss
 
 import android.os.Parcel
 import android.os.Parcelable
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 data class RecordsData (
@@ -10,8 +12,8 @@ data class RecordsData (
     val empName: String,
     val itemId: Int,
     val itemDescription: String,
-    val issuanceDate: String,
-    val returnDate : String,
+    var issuanceDate: String,
+    val infringement : String,
 ) : Parcelable {
     constructor() : this(0, 0,"",0, "", "", "")
 
@@ -25,6 +27,7 @@ data class RecordsData (
         parcel.readString() ?: "",
     )
 
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(recordId)
         parcel.writeInt(empId)
@@ -32,14 +35,13 @@ data class RecordsData (
         parcel.writeInt(itemId)
         parcel.writeString(itemDescription)
         parcel.writeString(issuanceDate)
-        parcel.writeString(returnDate)
+        parcel.writeString(infringement)
 
     }
 
     override fun describeContents(): Int {
         return 0
     }
-
     companion object CREATOR : Parcelable.Creator<RecordsData> {
         override fun createFromParcel(parcel: Parcel): RecordsData {
             return RecordsData(parcel)
@@ -49,4 +51,5 @@ data class RecordsData (
             return arrayOfNulls(size)
         }
     }
+
 }

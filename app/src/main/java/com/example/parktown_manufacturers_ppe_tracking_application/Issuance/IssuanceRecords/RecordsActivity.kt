@@ -22,6 +22,7 @@ import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManage
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.database.FirebaseDatabase
 
 class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener
     , RecordsAdapter.OnItemClickListener {
@@ -30,7 +31,9 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     private lateinit var navigationView : NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var progressbar: ProgressBar
-    private lateinit var pendingReturnsbtn: Button
+//    private lateinit var pendingReturnsbtn: Button
+    private val database = FirebaseDatabase.getInstance()
+    private val recordsRef = database.getReference("IssuanceRecords")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +47,13 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         progressbar.bringToFront()
         progressbar.visibility = View.VISIBLE
 
-        pendingReturnsbtn = findViewById(R.id.pending_returns_button)
-
-        pendingReturnsbtn.setOnClickListener {
-
-            val intent = Intent(this, PendingReturnsActivity::class.java)
-            startActivity(intent)
-        }
+//        pendingReturnsbtn = findViewById(R.id.pending_returns_button)
+//
+//        pendingReturnsbtn.setOnClickListener {
+//
+//            val intent = Intent(this, PendingReturnsActivity::class.java)
+//            startActivity(intent)
+//        }
 
 
         toolbar.setTitle("Issuance")
@@ -83,71 +86,7 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
     object RecordsManager{
         val RecordsList: MutableList<RecordsData> = mutableListOf(
-            RecordsData(
-                recordId = 1,
-                empId = 1,
-                empName = "Ndumiso Zwane",
-                itemId = 1,
-                itemDescription = "Skull cap",
-                issuanceDate = "24 April 2023",
-                returnDate = "27 April 2023"
-            ),
-            RecordsData(
-                recordId = 2,
-                empId = 2,
-                empName = "Uzair Cotwall",
-                itemId = 2,
-                itemDescription = "Overralls",
-                issuanceDate = "20 April 2023",
-                returnDate = "25 April 2023"
-            ),
-            RecordsData(
-                recordId = 3,
-                empId = 3,
-                empName = "Halalisani Mdlalose",
-                itemId = 3,
-                itemDescription = "Helmet",
-                issuanceDate = "15 April 2023",
-                returnDate = "20 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
         )
-
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {

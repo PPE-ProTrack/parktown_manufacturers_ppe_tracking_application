@@ -15,55 +15,78 @@
         android:padding="16dp">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginBottom="16dp">
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/ppeItemName_TextView"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textColor="@color/black"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:text="Item"
+                />
+
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            >
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:paddingHorizontal="20dp"
+                android:orientation="vertical"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/ppeItemTotal_TextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textColor="@color/black"
-                    android:layout_marginStart="10dp"/>
+                    android:text="Total : 2"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:textAlignment="center"
-                android:layout_weight="2">
+                android:paddingHorizontal="20dp"
+                android:layout_weight="1">
 
                 <TextView
                     android:id="@+id/ppeItemAvailable_TextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:textSize="18sp"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black"
+                    android:text="Available : 3"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"/>
             </LinearLayout>
+            <ImageButton
+                android:id="@+id/delete_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onDeleteButtonClick"
+                android:src="@drawable/bin"
+                android:layout_gravity="right"
+                android:layout_weight="0.5"/>
         </LinearLayout>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
