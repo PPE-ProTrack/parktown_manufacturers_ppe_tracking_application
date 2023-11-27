@@ -3,9 +3,11 @@ package com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManag
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Spinner
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -16,9 +18,14 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Dashboard.Das
 import com.example.parktown_manufacturers_ppe_tracking_application.Department.DepartmentActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuancePendingReturns.PendingReturnsActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener , PpeItemAdapter.OnItemClickListener {
 
@@ -26,6 +33,12 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var navigationView : NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var progressbar: ProgressBar
+    private lateinit var ppeItemsAdapter: PpeItemAdapter
+    private val ppeItemsList: MutableList<PpeItemData> = mutableListOf()
+    private lateinit var recyclerView: RecyclerView
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +50,8 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         progressbar = findViewById(R.id.progressBar)
         progressbar.bringToFront()
         progressbar.visibility = View.VISIBLE
+
+        ppeItemsAdapter = PpeItemAdapter(ppeItemsList,this)
 
         //Setting the name of the page in the toolbar
         toolbar.setTitle("PPE Items")
@@ -53,10 +68,12 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         navigationView.setNavigationItemSelectedListener(this)
+        loadPpeItemsFromFirebase()
 
-        val recyclerView: RecyclerView = findViewById(R.id.ppeItem_RecyclerView)
+       recyclerView = findViewById(R.id.ppeItem_RecyclerView)
 
-        recyclerView.adapter = PpeItemAdapter(ppeItemsManager.ppeItemsList, this)
+
+        recyclerView.adapter = PpeItemAdapter(ppeItemsList, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         progressbar.visibility = View.GONE
 
@@ -86,7 +103,7 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 startActivity(intent)
             }
             R.id.nav_issuance -> {
-                val intent = Intent(this, PendingReturnsActivity::class.java)
+                val intent = Intent(this, RecordsActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_settings -> {
@@ -97,44 +114,48 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
+    private fun loadPpeItemsFromFirebase() {
+        progressbar.visibility = View.VISIBLE
 
-    object ppeItemsManager{
+        val databaseReference = FirebaseDatabase.getInstance().reference.child("PpeItems")
 
-        val ppeItemsList: MutableList<PpeItemData> = mutableListOf(
-            PpeItemData(
-                itemId = "1",
-                description = "Item 1 Description",
-                total = 10,
-                available = 5,
-                allocationRules = "Rules for Item 1"
-            ),
-            PpeItemData(
-                itemId = "2",
-                description = "Item 2 Description",
-                total = 15,
-                available = 7,
-                allocationRules = "Rules for Item 2"
-            ),
-            PpeItemData(
-                itemId = "3",
-                description = "Item 3 Description",
-                total = 20,
-                available = 12,
-                allocationRules = "Rules for Item 3"
-            ),
-            PpeItemData(
-                itemId = "4",
-                description = "Item 4 Description",
-                total = 8,
-                available = 3,
-                allocationRules = "Rules for Item 4"
-            )
-        )
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val newPpeItemsList = mutableListOf<PpeItemData>()
+                Log.d("PPEItems", "onDataChange called")
+                for (ppeItemSnapshot in dataSnapshot.children) {
+                    Log.d("PPEItems", "ItemName: ${ppeItemSnapshot.child("itemName").getValue(String::class.java)}")
+                    val itemId = ppeItemSnapshot.child("itemId").getValue(Int::class.java)
+                    val itemDescription = ppeItemSnapshot.child("itemDescription").getValue(String::class.java)
+                    val total = ppeItemSnapshot.child("total").getValue(Int::class.java)
+                    val available = ppeItemSnapshot.child("available").getValue(Int::class.java)
 
+                    if ( itemId != null && itemDescription != null && total != null && available != null) {
+                        val ppeItemData = PpeItemData(itemId,itemDescription, total, available)
+                        newPpeItemsList.add(ppeItemData)
+                    }
+                }
+
+                // Directly manipulate the list in the activity
+                ppeItemsList.clear()
+                ppeItemsList.addAll(newPpeItemsList)
+
+                if (newPpeItemsList.isEmpty()) {
+                    // Handle empty list scenario if needed
+                }
+
+                // Notify the adapter that the data set has changed
+                ppeItemsAdapter.notifyDataSetChanged()
+
+                progressbar.visibility = View.GONE
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                progressbar.visibility = View.GONE
+                Log.e("PPEItems", "onCancelled: ${databaseError.message}")
+            }
+        })
     }
-
-
-
     override fun onItemClick(position: Int) {
         TODO("Not yet implemented")
     }
