@@ -1,6 +1,5 @@
 package com.example.parktown_manufacturers_ppe_tracking_application.Department
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -8,12 +7,15 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
-import java.util.HashSet
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AddDepartmentActivity : AppCompatActivity() {
 
     private lateinit var editTextDepartmentName: EditText
     private lateinit var buttonAddDepartment: Button
+
+    // Access a Cloud Firestore instance
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +39,8 @@ class AddDepartmentActivity : AppCompatActivity() {
 
         // Check if the department name is not empty
         if (departmentName.isNotEmpty()) {
-            // Save the department name to SharedPreferences
-            saveDepartment(departmentName)
+            // Save the department name to Firestore
+            saveDepartmentToFirestore(departmentName)
 
             // Display a success message
             Toast.makeText(this, "Department added successfully", Toast.LENGTH_SHORT).show()
@@ -48,15 +50,22 @@ class AddDepartmentActivity : AppCompatActivity() {
         }
     }
 
-    // Method to save the department name to SharedPreferences
-    private fun saveDepartment(departmentName: String) {
-        val preferences: SharedPreferences = getSharedPreferences("Departments", MODE_PRIVATE)
-        val departmentSet: MutableSet<String> =
-            preferences.getStringSet("departmentSet", HashSet()) ?: HashSet()
-        departmentSet.add(departmentName)
-
-        val editor: SharedPreferences.Editor = preferences.edit()
-        editor.putStringSet("departmentSet", departmentSet)
-        editor.apply()
+    // Method to save the department name to Firestore
+    private fun saveDepartmentToFirestore(departmentName: String) {
+        // Create a new document with a generated ID
+        db.collection("departments")
+            .add(mapOf("name" to departmentName))
+            .addOnSuccessListener { documentReference ->
+                // Log success or perform additional actions if needed
+            }
+            .addOnFailureListener { e ->
+                // Log error or perform additional error handling if needed
+                Toast.makeText(
+                    this,
+                    "Error adding department to Firestore",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
     }
 }
+
