@@ -5,7 +5,189 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Department.AddDepartmentActivity">
+    tools:context=".Department.AddDepartmentActivity"
+    android:background="@color/_bg_color">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_shape"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginTop="5dp">
+
+        <include
+            android:id="@+id/toolbar"
+            layout= "@layout/app_toolbar_main"
+            />
+        <Button
+            android:id="@+id/add_department_backbutton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/toolbar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="12dp"
+            android:background="#03FFFFFF"
+            android:drawableStart="@drawable/arrow_back"
+            android:padding="10dp"
+            app:layout_constraintStart_toStartOf="@id/toolbar"
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+        <LinearLayout
+            android:id="@+id/department_TextView_"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/department_LinearLayout">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Department"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textSize="25sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/department_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/dashboard_background_shape"
+            app:layout_constraintTop_toBottomOf="@id/department_TextView_"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+
+            <LinearLayout
+                android:id="@+id/department_name_view"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginBottom="36dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/firstname_view_shape">
+
+                <TextView android:id="@+id/department_name_"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="109.6dp"
+                    android:layout_height="20.6dp"
+                    android:text="Department Name"
+                    />
+
+                <EditText android:id="@+id/department_name_edittext"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="290.6dp"
+                    android:layout_height="37.6dp"
+                    android:hint="Department Name"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/department_LinearLayout"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            >-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/employees_TextView_"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Employee's"-->
+<!--                android:textAlignment="viewStart"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="24sp" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/itemDescription_TextView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Total Employees: 53"-->
+<!--                android:textAlignment="viewEnd"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="16sp" />-->
+
+<!--        </LinearLayout>-->
+
+
+        <Button
+            android:id="@+id/saveDeptBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="save"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/department_LinearLayout"
+            android:background="@color/primaryColor"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:progressBackgroundTint="@color/_bg_color"
+            android:visibility="gone"
+           android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/department_LinearLayout" />
+
+        <TextView
+            android:id="@+id/empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="To add an employee, Click '+'"
+            android:textSize="30dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
         android:id="@+id/toolbar"

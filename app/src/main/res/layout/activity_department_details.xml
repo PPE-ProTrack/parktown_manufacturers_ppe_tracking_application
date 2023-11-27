@@ -95,8 +95,9 @@
                     android:text="Department Name"
                     />
 
-                <EditText android:id="@+id/department_name_edittext"
-                    android:alpha="0.25"
+                <TextView android:id="@+id/department_name_TextView"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="20dp"
@@ -104,38 +105,8 @@
                     android:layout_width="290.6dp"
                     android:layout_height="37.6dp"
                     android:hint="Department Name"
-                    />
+                    android:clickable="false"
 
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/allocation_rules_layout"
-                android:layout_width="match_parent"
-                android:layout_height="67dp"
-                android:orientation="vertical"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="36dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/firstname_view_shape">
-                <TextView android:id="@+id/allocation_rules_"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="109.6dp"
-                    android:layout_height="20.6dp"
-                    android:text="Allocation Rule"
-                    />
-
-                <EditText android:id="@+id/allocation_rules_edittext"
-                    android:alpha="0.25"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_width="290.6dp"
-                    android:layout_height="37.6dp"
-                    android:text="Allocation Rule"
                     />
 
             </LinearLayout>
@@ -165,15 +136,31 @@
                 android:textColor="@color/black"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/itemDescription_TextView"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Total Employees: 53"
-                android:textAlignment="viewEnd"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+
+                >
+                <TextView
+                    android:id="@+id/itemDescription_TextView_"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total Employees: "
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/employee_count_TextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="53"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -199,15 +186,8 @@
                     android:clipToPadding="false"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/department_employee_cardview" />
+                    tools:listitem="@layout/employee_cardview" />
 
-                <ProgressBar
-                    android:id="@+id/progessBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="visible"
-                    android:progressBackgroundTint="@color/_bg_color"/>
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -224,29 +204,22 @@
             app:layout_constraintStart_toStartOf="@+id/recycler_View"
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
+        <!-- Empty message TextView -->
+
         <TextView
             android:id="@+id/empty_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="To add an employee, Click '+'"
-            android:textSize="30dp"
+            android:text="No Employees for this Department"
+            android:textSize="25dp"
             android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/AddEmployee_FloatingActionButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_View"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_View"
+            app:layout_constraintStart_toStartOf="@+id/recycler_View"
+            app:layout_constraintTop_toBottomOf="@+id/title" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/recordIssuance_FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:src="@drawable/plus_icon"
-            app:backgroundTint="@color/_bg_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

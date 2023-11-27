@@ -1,71 +1,120 @@
 package com.example.parktown_manufacturers_ppe_tracking_application.Department
 
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.*
+import androidx.appcompat.widget.Toolbar
+import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.*
 
 class AddDepartmentActivity : AppCompatActivity() {
 
-    private lateinit var editTextDepartmentName: EditText
-    private lateinit var buttonAddDepartment: Button
+    private lateinit var departmentNameEditText : EditText
+    private lateinit var btnSave: Button
+    private lateinit var toolbar : Toolbar
+    private lateinit var progressbar: ProgressBar
+    private lateinit var departmentsDatabaseReference: DatabaseReference
+    private lateinit var backButton: Button
 
-    // Access a Cloud Firestore instance
-    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_department)
 
-        // Initialize views
-        editTextDepartmentName = findViewById(R.id.editTextDepartmentName)
-        buttonAddDepartment = findViewById(R.id.buttonAddDepartment)
 
-        // Set click listener for the add department button
-        buttonAddDepartment.setOnClickListener {
-            // Call a method to handle the addition of the department
-            addDepartment()
+        toolbar = findViewById(R.id.toolbar)
+
+         progressbar = findViewById(R.id.progressBar)
+         progressbar.bringToFront()
+         progressbar.visibility = View.GONE
+
+        // Initialize EditTexts
+        departmentNameEditText = findViewById(R.id.department_name_edittext)
+
+
+        // Initialize Button
+        btnSave = findViewById(R.id.saveDeptBtn)
+        backButton = findViewById(R.id.add_department_backbutton)
+
+        // Initialize Firebase Database reference
+        departmentsDatabaseReference = FirebaseDatabase.getInstance().reference.child("departments")
+
+
+        backButton.setOnClickListener {
+            val intent = Intent(this, DepartmentActivity::class.java)
+            startActivity(intent)
         }
+
+        toolbar.setTitle("Add Department")
+        toolbar.titleMarginStart= 150
+        setSupportActionBar(toolbar)
+
+        btnSave.setOnClickListener {
+            saveBtn()
+        }
+
+
+
     }
 
-    // Method to handle the addition of a department
-    private fun addDepartment() {
-        // Get the department name from the EditText
-        val departmentName = editTextDepartmentName.text.toString().trim()
+    private fun saveBtn() {
+        val departmentName = departmentNameEditText.text.toString().trim()
 
-        // Check if the department name is not empty
         if (departmentName.isNotEmpty()) {
-            // Save the department name to Firestore
-            saveDepartmentToFirestore(departmentName)
+            generateUniqueDepartmentId { newDepartmentId ->
+                val totalEmployees = 0 // Initialize totalEmployees to zero
 
-            // Display a success message
-            Toast.makeText(this, "Department added successfully", Toast.LENGTH_SHORT).show()
+                val departmentData = DepartmentData(newDepartmentId, departmentName, totalEmployees)
+
+                departmentsDatabaseReference.child(newDepartmentId.toString()).setValue(departmentData)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            // Department added successfully
+                            showToast("Department added successfully")
+                            finish() // Close the activity after successful addition
+                        } else {
+                            showToast("Failed to add department")
+                        }
+                    }
+            }
         } else {
-            // Display an error message for an empty department name
-            Toast.makeText(this, "Please enter a department name", Toast.LENGTH_SHORT).show()
+            showToast("Department name cannot be empty")
         }
     }
 
-    // Method to save the department name to Firestore
-    private fun saveDepartmentToFirestore(departmentName: String) {
-        // Create a new document with a generated ID
-        db.collection("departments")
-            .add(mapOf("name" to departmentName))
-            .addOnSuccessListener { documentReference ->
-                // Log success or perform additional actions if needed
-            }
-            .addOnFailureListener { e ->
-                // Log error or perform additional error handling if needed
-                Toast.makeText(
-                    this,
-                    "Error adding department to Firestore",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+    private fun generateUniqueDepartmentId(callback: (Int) -> Unit) {
+        // Get the highest department ID from the database
+        departmentsDatabaseReference.orderByKey().limitToLast(1)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val lastDepartmentId = dataSnapshot.children.firstOrNull()?.key?.toIntOrNull()
+                    val newDepartmentId = getNextDepartmentId(lastDepartmentId)
+                    callback.invoke(newDepartmentId)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle error
+                }
+            })
     }
+
+    private fun getNextDepartmentId(lastDepartmentId: Int?): Int {
+        val lastIdInt = lastDepartmentId?: 0
+        val nextIdInt = lastIdInt + 1000
+        return nextIdInt
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+    }
+
+    
+
+    
 }
 
