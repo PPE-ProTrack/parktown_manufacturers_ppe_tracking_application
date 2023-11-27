@@ -5,24 +5,21 @@ import android.os.Parcelable
 
 data class DepartmentData(
 
-    val departmentId: String,
+    val departmentId: Int,
     val departmentName: String,
-    val allocationRules: String,
     val totalEmployees : Int,
 ) : Parcelable {
-    constructor() : this("", "", "", 0)
+    constructor() : this(0, "", 0)
 
     constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
+        parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readInt(),
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(departmentId)
+        parcel.writeInt(departmentId)
         parcel.writeString(departmentName)
-        parcel.writeString(allocationRules)
         parcel.writeInt(totalEmployees)
 
     }
