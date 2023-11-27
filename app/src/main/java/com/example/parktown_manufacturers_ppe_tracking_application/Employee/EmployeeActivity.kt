@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,11 +19,16 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Department.De
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity.EmployeeManager.employeeList
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeDetails.EmployeeDetailsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuancePendingReturns.PendingReturnsActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemsActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.Profile.ProfileActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 
 class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     EmployeeAdapter.OnItemClickListener {
@@ -33,6 +39,7 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var progressbar: ProgressBar
     private lateinit var recyclerView: RecyclerView
     private lateinit var AddEmployee_FloatingActionButton: FloatingActionButton
+    private lateinit var auth: FirebaseAuth
 
     // Reference to the Firebase Realtime Database
     private lateinit var databaseReference: DatabaseReference
@@ -43,6 +50,7 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_employee)
 
+        auth = Firebase.auth
         toolbar = findViewById(R.id.toolbar)
         navigationView = findViewById(R.id.nav_view)
         drawerLayout = findViewById(R.id.employee_drawer)
@@ -58,6 +66,8 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             startActivity(intent)
         }
 
+        //get current user
+        val currentUser = auth.currentUser
         toolbar.setTitle("Employees")
 
         setSupportActionBar(toolbar)
@@ -74,6 +84,21 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         navigationView.setNavigationItemSelectedListener(this)
 
+        // Find the TextView within the header view
+        val headerView = navigationView.getHeaderView(0)
+        val usernameTextView = headerView.findViewById<Button>(R.id.navbar_username)
+
+        // Update the content of the TextView
+        if (currentUser != null) {
+            usernameTextView.text = currentUser.email
+        }
+        usernameTextView.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+        navigationView.setCheckedItem(R.id.nav_employee)
+
+
         // Initialize Firebase Database reference
         databaseReference = FirebaseDatabase.getInstance().reference.child("employees")
 
@@ -86,6 +111,7 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val employees = mutableListOf<EmployeeData>()
+
                 for (employeeSnapshot in dataSnapshot.children) {
                     val employee = employeeSnapshot.getValue(EmployeeData::class.java)
                     employee?.let { employees.add(it) }
@@ -142,7 +168,7 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
             }
             R.id.nav_issuance -> {
-                val intent = Intent(this, PendingReturnsActivity::class.java)
+                val intent = Intent(this, RecordsActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_settings -> {

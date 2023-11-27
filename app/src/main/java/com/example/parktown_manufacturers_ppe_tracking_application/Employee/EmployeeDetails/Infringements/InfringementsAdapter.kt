@@ -8,13 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 
 class InfringementsAdapter (
-    private val infringementList: MutableList<InfringementsData>,
-    private val itemClickListener: OnItemClickListener
-) : RecyclerView.Adapter<InfringementsAdapter.InfringementViewHolder>() {
-
-    interface OnItemClickListener {
-        fun onItemClick(position: Int)
-    }
+    private val infringementList: MutableList<InfringementsData>) : RecyclerView.Adapter<InfringementsAdapter.InfringementViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InfringementViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -29,11 +23,6 @@ class InfringementsAdapter (
         holder.itemName.text = currentItem.itemDescription
         holder.notReturned.text = currentItem.itemNotReturnedCount.toString()
 
-
-        // Set click listener for the whole item
-        holder.itemView.setOnClickListener {
-            itemClickListener.onItemClick(position)
-        }
     }
     override fun getItemCount() = infringementList.size
 
