@@ -19,13 +19,12 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Department.De
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuancePendingReturns.PendingReturnsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsAdapter
+import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsData
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener , PpeItemAdapter.OnItemClickListener {
 
@@ -34,9 +33,10 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var progressbar: ProgressBar
     private lateinit var ppeItemsAdapter: PpeItemAdapter
-    private val ppeItemsList: MutableList<PpeItemData> = mutableListOf()
+    private lateinit var ppeItemsList: MutableList<PpeItemData>
     private lateinit var recyclerView: RecyclerView
-
+    private lateinit var database: FirebaseDatabase
+    private lateinit var recordsReference: DatabaseReference
 
 
 
@@ -51,7 +51,7 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         progressbar.bringToFront()
         progressbar.visibility = View.VISIBLE
 
-        ppeItemsAdapter = PpeItemAdapter(ppeItemsList,this)
+//        ppeItemsAdapter = PpeItemAdapter(ppeItemsList,this)
 
         //Setting the name of the page in the toolbar
         toolbar.setTitle("PPE Items")
@@ -68,13 +68,25 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         navigationView.setNavigationItemSelectedListener(this)
+
+        database = FirebaseDatabase.getInstance()
+        recordsReference = database.getReference("PpeItems")
+
+        ppeItemsList = mutableListOf()
+        ppeItemsAdapter = PpeItemAdapter(ppeItemsList, this)
+
+        recyclerView = findViewById(R.id.ppeItem_RecyclerView)
+
+        recyclerView.adapter = ppeItemsAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
         loadPpeItemsFromFirebase()
 
-       recyclerView = findViewById(R.id.ppeItem_RecyclerView)
-
-
-        recyclerView.adapter = PpeItemAdapter(ppeItemsList, this)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+//       recyclerView = findViewById(R.id.ppeItem_RecyclerView)
+//
+//
+//        recyclerView.adapter = PpeItemAdapter(ppeItemsList, this)
+//        recyclerView.layoutManager = LinearLayoutManager(this)
         progressbar.visibility = View.GONE
 
         val fabAddObservation: FloatingActionButton = findViewById(R.id.AddPpeItems_FloatingActionButton)
@@ -125,7 +137,7 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 Log.d("PPEItems", "onDataChange called")
                 for (ppeItemSnapshot in dataSnapshot.children) {
                     Log.d("PPEItems", "ItemName: ${ppeItemSnapshot.child("itemName").getValue(String::class.java)}")
-                    val itemId = ppeItemSnapshot.child("itemId").getValue(Int::class.java)
+                    val itemId = ppeItemSnapshot.child("itemId").getValue(String::class.java)
                     val itemDescription = ppeItemSnapshot.child("itemDescription").getValue(String::class.java)
                     val total = ppeItemSnapshot.child("total").getValue(Int::class.java)
                     val available = ppeItemSnapshot.child("available").getValue(Int::class.java)
