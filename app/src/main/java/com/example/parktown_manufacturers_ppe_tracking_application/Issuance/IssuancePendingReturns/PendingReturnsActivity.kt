@@ -172,12 +172,12 @@ class PendingReturnsActivity : AppCompatActivity(), NavigationView.OnNavigationI
                 startActivity(intent)
             }
             R.id.nav_issuance -> {
-//                val intent = Intent(this, HotSpotActivity::class.java)
-//                startActivity(intent)
+                val intent = Intent(this, RecordsActivity::class.java)
+                startActivity(intent)
             }
             R.id.nav_settings -> {
 //                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
+//                startActivity(intent)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

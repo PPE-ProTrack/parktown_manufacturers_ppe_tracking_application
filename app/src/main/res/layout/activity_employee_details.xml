@@ -254,7 +254,7 @@
             <LinearLayout
                 android:id="@+id/emp_infringements_view"
                 android:layout_width="match_parent"
-                android:layout_height="67dp"
+                android:layout_height="75dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/firstname_view_shape"
                 android:orientation="vertical"
@@ -276,12 +276,13 @@
                     android:id="@+id/emp_infringements_btn"
                     android:layout_width="290.6dp"
                     android:layout_height="37.6dp"
-                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="5dp"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
-                    android:text="Engineering"
-                    android:textColor="@color/black"
+                    android:text="Infringements"
+                    android:backgroundTint="@color/infoColor"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
             </LinearLayout>
 

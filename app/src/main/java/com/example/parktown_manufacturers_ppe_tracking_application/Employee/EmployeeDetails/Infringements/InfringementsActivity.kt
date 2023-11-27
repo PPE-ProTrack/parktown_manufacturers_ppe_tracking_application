@@ -21,7 +21,7 @@ import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
 
-class InfringementsActivity : AppCompatActivity(), InfringementsAdapter.OnItemClickListener {
+class InfringementsActivity : AppCompatActivity() {
 
     private lateinit var toolbar : Toolbar
     private lateinit var progressbar: ProgressBar
@@ -66,10 +66,6 @@ class InfringementsActivity : AppCompatActivity(), InfringementsAdapter.OnItemCl
             // Start EmployeeDetailsActivity
             startActivity(intent)
         }
-
-
-
-
 
             // Assuming you have a reference to your Firebase Database
             infringementsReference = FirebaseDatabase.getInstance().getReference("employee_infringements")
@@ -151,7 +147,7 @@ class InfringementsActivity : AppCompatActivity(), InfringementsAdapter.OnItemCl
 
     private fun populateRecycler(){
         Log.d("list", infringementList.toString())
-        infringementsAdapter = InfringementsAdapter(infringementList, this)
+        infringementsAdapter = InfringementsAdapter(infringementList)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = infringementsAdapter
@@ -160,7 +156,7 @@ class InfringementsActivity : AppCompatActivity(), InfringementsAdapter.OnItemCl
 
         infringementsAdapter.notifyDataSetChanged()
     }
-    override fun onItemClick(position: Int) {
+
 //        // Get the selected employee
 //        val selectedEmployee = EmployeeActivity.EmployeeManager.employeeList[position]
 //
@@ -172,5 +168,5 @@ class InfringementsActivity : AppCompatActivity(), InfringementsAdapter.OnItemCl
 //
 //        // Start EmployeeDetailsActivity
 //        startActivity(intent)
-    }
+
     }
