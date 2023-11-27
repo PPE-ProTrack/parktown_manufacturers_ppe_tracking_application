@@ -11,9 +11,9 @@ data class RecordsData (
     val itemId: Int,
     val itemDescription: String,
     val issuanceDate: String,
-    val returnDate : String,
+    val returned : String,
 ) : Parcelable {
-    constructor() : this(0, 0,"",0, "", "", "")
+    constructor() : this(0, 0,"",0, "", "","")
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -23,7 +23,7 @@ data class RecordsData (
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-    )
+        )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(recordId)
@@ -32,7 +32,8 @@ data class RecordsData (
         parcel.writeInt(itemId)
         parcel.writeString(itemDescription)
         parcel.writeString(issuanceDate)
-        parcel.writeString(returnDate)
+        parcel.writeString(returned)
+
 
     }
 

@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
                     android:text="Issuance date:"
-                    android:textSize="10sp"
+                    android:textSize="16sp"
                     android:textColor="@color/black"/>
                 <TextView
                     android:id="@+id/issuanceDate_TextView"
@@ -78,20 +78,19 @@
                 android:textAlignment="center"
                 android:layout_weight="2">
                 <TextView
-                    android:id="@+id/returnDateTextView"
+                    android:id="@+id/returnInfringementTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="Return Date:"
-                    android:textSize="10sp"
+                    android:text="Infringement:"
+                    android:textSize="16sp"
                     android:textColor="@color/black"/>
                 <TextView
-                    android:id="@+id/returnDate_TextView"
+                    android:id="@+id/isReturned_TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-
-                    android:text="24 April 2023"
+                    android:text="yes"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/black"/>
