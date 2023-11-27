@@ -12,22 +12,29 @@ import com.google.firebase.database.*
 
 class AddEmployeeActivity : AppCompatActivity() {
 
-    private lateinit var empIdEditText : EditText
-    private lateinit var empNameEditText : EditText
-    private lateinit var empSurnameEditText : EditText
+     lateinit var empIdEditText : EditText
+     lateinit var empNameEditText : EditText
+     lateinit var empSurnameEditText : EditText
 
-    private var empDepartmentId : String = ""
-    private var empDepartmentName : String = ""
+     var empDepartmentId : String = ""
+     var empDepartmentName : String = ""
     lateinit var btnSave: Button
     private lateinit var toolbar : Toolbar
     lateinit var empDepartmentNameSpinner: Spinner
 
+    var empID = 0
+    var employeeName = ""
+    var employeeSurname = ""
+    var fullName = "$employeeName $employeeSurname"
+    var departmentId =  0
+    var departmentName = ""
+
    // private lateinit var progressbar: ProgressBar
 
     // Reference to the Firebase Realtime Database
-    private lateinit var employeesDatabaseReference: DatabaseReference
+    lateinit var employeesDatabaseReference: DatabaseReference
 
-    private lateinit var departmentsDatabaseReference: DatabaseReference
+    lateinit var departmentsDatabaseReference: DatabaseReference
 
     lateinit var backButton: Button
 
@@ -146,10 +153,13 @@ class AddEmployeeActivity : AppCompatActivity() {
         empDepartmentName = departmentName
     }
 
-    fun saveBtn() {
-        val employeeName = empNameEditText.text.toString().trim()
-        val employeeSurname = empSurnameEditText.text.toString().trim()
-        val fullName = "$employeeName $employeeSurname"
+     fun saveBtn() {
+         empID = empIdEditText.text.toString().toInt()
+         employeeName = empNameEditText.text.toString().trim()
+         employeeSurname = empSurnameEditText.text.toString().trim()
+         fullName = "$employeeName $employeeSurname"
+         departmentId =  empDepartmentId.toInt()
+         departmentName = empDepartmentName
 
         employeesDatabaseReference.orderByChild("employeeFullName").equalTo(fullName)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -161,17 +171,17 @@ class AddEmployeeActivity : AppCompatActivity() {
 
                         // Create an instance of EmployeeData with updated full name
                         val employeeData = EmployeeData(
-                            empIdEditText.text.toString().toInt(),
+                            empID,
                             employeeName,
                             employeeSurname,
                             updatedFullName,
-                            empDepartmentId.toInt(),
-                            empDepartmentName
+                            departmentId,
+                            departmentName
                         )
 
                         // Push the data to Firebase Realtime Database
-                        val newEmployeeReference = employeesDatabaseReference.push()
-                        newEmployeeReference.setValue(employeeData, object : DatabaseReference.CompletionListener {
+                            val newEmployeeReference = employeesDatabaseReference.push()
+                        employeesDatabaseReference.child(empID.toString()).setValue(employeeData, object : DatabaseReference.CompletionListener {
                             override fun onComplete(databaseError: DatabaseError?, databaseReference: DatabaseReference) {
                                 if (databaseError == null) {
                                     showToast("Employee added successfully")
@@ -189,17 +199,17 @@ class AddEmployeeActivity : AppCompatActivity() {
                         //val totalEmployees = 0 // Initialize totalEmployees to zero
 
                         val employeeData = EmployeeData(
-                            empIdEditText.text.toString().toInt(),
+                            empID,
                             employeeName,
                             employeeSurname,
                             fullName,
-                            empDepartmentId.toInt(),
-                            empDepartmentName
+                            departmentId,
+                            departmentName
                         )
 
                         // Push the data to Firebase Realtime Database
-                        val newEmployeeReference = employeesDatabaseReference.push()
-                        newEmployeeReference.setValue(employeeData, object : DatabaseReference.CompletionListener {
+                            //val newEmployeeReference = employeesDatabaseReference.push()
+                        employeesDatabaseReference.child(empID.toString()).setValue(employeeData, object : DatabaseReference.CompletionListener {
                             override fun onComplete(databaseError: DatabaseError?, databaseReference: DatabaseReference) {
                                 if (databaseError == null) {
                                     showToast("Employee added successfully")
@@ -247,6 +257,7 @@ class AddEmployeeActivity : AppCompatActivity() {
     }
 
     private fun fetchDepartments() {
+
         val departmentList = mutableListOf<String>()
 
         // Attach a listener to read the data at the 'departments' path
@@ -281,7 +292,7 @@ class AddEmployeeActivity : AppCompatActivity() {
         })
     }
 
-    private fun updateTotalEmployees() {
+    fun updateTotalEmployees() {
         // Increment totalEmployees in the department table
         departmentsDatabaseReference.child(empDepartmentId).child("totalEmployees").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -297,7 +308,7 @@ class AddEmployeeActivity : AppCompatActivity() {
             }
         })
     }
-    private fun showToast(message: String) {
+    fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 

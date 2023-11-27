@@ -117,12 +117,17 @@
                     android:prompt="@string/select_department"
                     />
 
+
                 <TextView
                     android:id="@+id/emplId_TextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Employee ID"
                     android:textSize="24sp"
+                    android:visibility="visible"
+                    android:clickable="true"
+                    android:enabled="true"
+                    android:focusable="true"
                     android:textColor="@color/black"
                     android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp" />
@@ -210,6 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/_bg_color"
+                android:clickable="true"
                 android:text="SAVE"
                 android:textColor="@color/white" />
 

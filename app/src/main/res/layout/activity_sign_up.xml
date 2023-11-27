@@ -128,7 +128,7 @@
     <View
         android:id="@+id/password_view"
         android:layout_width="332dp"
-        android:layout_height="57dp"
+        android:layout_height="58dp"
         android:layout_below="@+id/workemail_view"
         android:layout_marginTop="16dp"
         android:background="@drawable/password_view_shape"
@@ -147,20 +147,46 @@
         app:layout_constraintStart_toStartOf="@+id/password_view"
         app:layout_constraintTop_toTopOf="@+id/password_view" />
 
-    <EditText
-        android:id="@+id/password_edittext"
-        android:layout_width="290.6dp"
-        android:layout_height="37.6dp"
 
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textColor="@color/black"
-        android:textSize="16sp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/password_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/password_view"
         app:layout_constraintHorizontal_bias="0.365"
         app:layout_constraintStart_toStartOf="@+id/password_view"
-        app:layout_constraintTop_toBottomOf="@+id/password_" />
+        app:layout_constraintTop_toBottomOf="@+id/password_">
+        <EditText
+            android:id="@+id/password_edittext"
+            android:layout_width="290.6dp"
+            android:layout_height="41dp"
 
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.365"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/show_password_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/password_edittext"
+            android:layout_alignTop="@+id/password_edittext"
+            android:layout_alignEnd="@+id/password_edittext"
+            android:layout_alignBottom="@+id/password_edittext"
+            android:background="@color/white"
+            android:src="@drawable/view1"
+            app:layout_constraintBottom_toBottomOf="@+id/password_edittext"
+            app:layout_constraintEnd_toEndOf="@+id/password_edittext"
+            app:layout_constraintHorizontal_bias="0.884"
+            app:layout_constraintStart_toStartOf="@+id/password_edittext"
+            app:layout_constraintTop_toTopOf="@+id/password_edittext"
+            app:layout_constraintVertical_bias="0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         android:id="@+id/confirmpassword_view"
         android:layout_width="332dp"
