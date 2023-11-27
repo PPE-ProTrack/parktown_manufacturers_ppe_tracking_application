@@ -8,18 +8,18 @@ data class RecordsData (
     val recordId : Int,
     val empId: Int,
     val empName: String,
-    val itemId: Int,
+    val itemId: String,
     val itemDescription: String,
     val issuanceDate: String,
     val returned : String,
 ) : Parcelable {
-    constructor() : this(0, 0,"",0, "", "","")
+    constructor() : this(0, 0,"","", "", "","")
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
         parcel.readString() ?: "",
-        parcel.readInt(),
+        parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readString() ?: "",
@@ -29,7 +29,7 @@ data class RecordsData (
         parcel.writeInt(recordId)
         parcel.writeInt(empId)
         parcel.writeString(empName)
-        parcel.writeInt(itemId)
+        parcel.writeString(itemId)
         parcel.writeString(itemDescription)
         parcel.writeString(issuanceDate)
         parcel.writeString(returned)
