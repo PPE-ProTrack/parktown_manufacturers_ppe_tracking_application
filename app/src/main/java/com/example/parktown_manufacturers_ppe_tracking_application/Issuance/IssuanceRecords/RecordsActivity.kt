@@ -18,10 +18,13 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Department.De
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuancePendingReturns.PendingReturnsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.RecordIssuanceActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemAdapter
+import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemData
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.database.*
 
 class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener
     , RecordsAdapter.OnItemClickListener {
@@ -30,7 +33,11 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     private lateinit var navigationView : NavigationView
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var progressbar: ProgressBar
-    private lateinit var pendingReturnsbtn: Button
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var database: FirebaseDatabase
+    private lateinit var recordsReference: DatabaseReference
+    private lateinit var recordsList: MutableList<RecordsData>
+    private lateinit var recordsAdapter: RecordsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,13 +51,6 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         progressbar.bringToFront()
         progressbar.visibility = View.VISIBLE
 
-        pendingReturnsbtn = findViewById(R.id.pending_returns_button)
-
-        pendingReturnsbtn.setOnClickListener {
-
-            val intent = Intent(this, PendingReturnsActivity::class.java)
-            startActivity(intent)
-        }
 
 
         toolbar.setTitle("Issuance")
@@ -68,10 +68,18 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         navigationView.setNavigationItemSelectedListener(this)
 
-        val recyclerView: RecyclerView = findViewById(R.id.record_RecyclerView)
+        database = FirebaseDatabase.getInstance()
+        recordsReference = database.getReference("issuance_records")
 
-        recyclerView.adapter = RecordsAdapter(RecordsManager.RecordsList, this)
+        recordsList = mutableListOf()
+        recordsAdapter = RecordsAdapter(recordsList, this)
+
+        recyclerView = findViewById(R.id.record_RecyclerView)
+
+        recyclerView.adapter = recordsAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        fetchDataFromFirebase()
         progressbar.visibility = View.GONE
 
 
@@ -81,73 +89,31 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             startActivity(Intent(this, RecordIssuanceActivity::class.java))
         }
     }
-    object RecordsManager{
-        val RecordsList: MutableList<RecordsData> = mutableListOf(
-            RecordsData(
-                recordId = 1,
-                empId = 1,
-                empName = "Ndumiso Zwane",
-                itemId = 1,
-                itemDescription = "Skull cap",
-                issuanceDate = "24 April 2023",
-                returnDate = "27 April 2023"
-            ),
-            RecordsData(
-                recordId = 2,
-                empId = 2,
-                empName = "Uzair Cotwall",
-                itemId = 2,
-                itemDescription = "Overralls",
-                issuanceDate = "20 April 2023",
-                returnDate = "25 April 2023"
-            ),
-            RecordsData(
-                recordId = 3,
-                empId = 3,
-                empName = "Halalisani Mdlalose",
-                itemId = 3,
-                itemDescription = "Helmet",
-                issuanceDate = "15 April 2023",
-                returnDate = "20 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
-            RecordsData(
-                recordId = 4,
-                empId = 4,
-                empName = "Mufhatutshedzwa Todani",
-                itemId = 4,
-                itemDescription = "Skull Cap",
-                issuanceDate = "12 April 2023",
-                returnDate = "17 April 2023"
-            ),
-        )
 
+    private fun fetchDataFromFirebase() {
+        progressbar.visibility = View.VISIBLE
+
+        // Clear existing data in the list before fetching new data
+        recordsList.clear()
+
+        recordsReference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (dataSnapshot in snapshot.children) {
+                    val record = dataSnapshot.getValue(RecordsData::class.java)
+                    record?.let { recordsList.add(it) }
+                }
+
+                // Notify the adapter that the data set has changed
+                recordsAdapter.notifyDataSetChanged()
+
+                progressbar.visibility = View.GONE
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+                progressbar.visibility = View.GONE
+            }
+        })
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
@@ -171,8 +137,7 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 startActivity(intent)
             }
             R.id.nav_issuance -> {
-//                val intent = Intent(this, HotSpotActivity::class.java)
-//                startActivity(intent)
+//
             }
             R.id.nav_settings -> {
 //                val intent = Intent(this, SettingsActivity::class.java)

@@ -5,28 +5,26 @@ import android.os.Parcelable
 
 
 data class PpeItemData(
-    val itemId: String,
-    val description: String,
+
+    val itemId: Int,
+    val itemDescription: String,
     val total: Int,
-    val available: Int,
-    val allocationRules: String,
+    var available: Int,
 ) : Parcelable {
-    constructor() : this("", "", 0, 0, "")
+    constructor() : this(0,"", 0, 0)
 
     constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
+        parcel.readInt() ,
         parcel.readString() ?: "",
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(itemId)
-        parcel.writeString(description)
+        parcel.writeInt(itemId)
+        parcel.writeString(itemDescription)
         parcel.writeInt(total)
         parcel.writeInt(available)
-        parcel.writeString(allocationRules)
     }
 
     override fun describeContents(): Int {

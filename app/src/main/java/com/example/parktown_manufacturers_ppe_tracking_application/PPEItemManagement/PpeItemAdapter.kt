@@ -27,8 +27,8 @@ class PpeItemAdapter (
 
     override fun onBindViewHolder(holder: ppeItemViewHolder, position: Int) {
         val currentItem = ppeItemList[position]
-        holder.ppeItemName.text = currentItem.description
-        holder.ppeItemTotal.text = "Totals: ${currentItem.total}"
+        holder.ppeItemName.text = currentItem.itemDescription
+        holder.ppeItemTotal.text = "Total: ${currentItem.total}"
         holder.ppeItemAvailable.text = "Available: ${currentItem.available}"
 
 
@@ -43,8 +43,6 @@ class PpeItemAdapter (
         val ppeItemName: TextView = itemView.findViewById(R.id.ppeItemName_TextView)
         val ppeItemTotal: TextView = itemView.findViewById(R.id.ppeItemTotal_TextView)
         val ppeItemAvailable: TextView = itemView.findViewById(R.id.ppeItemAvailable_TextView)
-
-
 
     }
 }

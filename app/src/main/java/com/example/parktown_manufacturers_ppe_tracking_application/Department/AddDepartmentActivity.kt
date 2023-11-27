@@ -1,5 +1,6 @@
 package com.example.parktown_manufacturers_ppe_tracking_application.Department
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,6 +19,7 @@ class AddDepartmentActivity : AppCompatActivity() {
     private lateinit var progressbar: ProgressBar
     private lateinit var departmentsDatabaseReference: DatabaseReference
     private lateinit var backButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,5 +110,11 @@ class AddDepartmentActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
     }
+
+    
+
+    
 }
+

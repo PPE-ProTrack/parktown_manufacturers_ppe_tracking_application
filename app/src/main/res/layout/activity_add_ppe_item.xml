@@ -68,26 +68,26 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/ppeItemId_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Item ID"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/ppeItemId_TextView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Item ID"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginStart="16dp" />-->
 
-                <!-- Species Name Input -->
-                <EditText
-                    android:id="@+id/ppeItemId_EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter Item ID"
-                    android:textColorHint="@color/primary_grey"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
+<!--                &lt;!&ndash; Species Name Input &ndash;&gt;-->
+<!--                <EditText-->
+<!--                    android:id="@+id/ppeItemId_EditText"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="Enter Item ID"-->
+<!--                    android:textColorHint="@color/primary_grey"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginStart="16dp"/>-->
 
                 <!-- Title -->
                 <TextView
@@ -131,36 +131,33 @@
                     android:textColor="@color/black"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="16dp"
-                    android:focusable="false"
-                    android:inputType="none"
-                    android:clickable="false"
+
                     />
 
+<!--                &lt;!&ndash; Location Label &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/ppeItemDepartment_TextView"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Department:"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginStart="16dp"/>-->
 
-                <!-- Location Label -->
-                <TextView
-                    android:id="@+id/ppeItemDepartment_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Department:"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"/>
-
-                <!-- Location Input -->
-                <EditText
-                    android:id="@+id/ppeItemDepartment_EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/primary_grey"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_marginStart="16dp"
-                    android:focusable="false"
-                    android:clickable="false"
-                    />
+<!--                &lt;!&ndash; Location Input &ndash;&gt;-->
+<!--                <EditText-->
+<!--                    android:id="@+id/ppeItemDepartment_EditText"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:textColorHint="@color/primary_grey"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:focusable="false"-->
+<!--                    android:clickable="false"-->
+<!--                    />-->
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

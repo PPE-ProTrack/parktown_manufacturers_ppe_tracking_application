@@ -17,6 +17,13 @@ class RecordsAdapter (
         fun onItemClick(position: Int)
     }
 
+    class RecordsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val empName: TextView = itemView.findViewById(R.id.empName_TextView)
+        val itemDescription: TextView = itemView.findViewById(R.id.itemDescription_TextView)
+        val issuanceDate: TextView = itemView.findViewById(R.id.issuanceDate_TextView)
+        val isReturned: TextView = itemView.findViewById(R.id.isReturned_TextView)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordsViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
             R.layout.issuance_records_cardview,
@@ -25,12 +32,13 @@ class RecordsAdapter (
         return RecordsViewHolder(itemView)
     }
 
+
     override fun onBindViewHolder(holder: RecordsViewHolder, position: Int) {
         val currentItem = RecordsList[position]
         holder.empName.text = currentItem.empName
         holder.itemDescription.text = currentItem.itemDescription
         holder.issuanceDate.text = currentItem.issuanceDate
-        holder.returnDate.text = currentItem.returnDate
+        holder.isReturned.text = currentItem.returned
 
         // Set click listener for the whole item
         holder.itemView.setOnClickListener {
@@ -39,11 +47,5 @@ class RecordsAdapter (
     }
     override fun getItemCount() = RecordsList.size
 
-    class RecordsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val empName: TextView = itemView.findViewById(R.id.empName_TextView)
-        val itemDescription: TextView = itemView.findViewById(R.id.itemDescription_TextView)
-        val issuanceDate: TextView = itemView.findViewById(R.id.issuanceDate_TextView)
-        val returnDate: TextView = itemView.findViewById(R.id.returnDate_TextView)
-        //val testButton: TextView = itemView.findViewById(R.id.testbutton)
-    }
+
 }

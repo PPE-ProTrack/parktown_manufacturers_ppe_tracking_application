@@ -61,9 +61,11 @@ dependencies {
     //firebase Implementation
     implementation 'com.google.firebase:firebase-auth-ktx:22.2.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.3.0'
+
     implementation 'com.google.ar:core:1.30.0'
     implementation 'androidx.test.ext:junit-ktx:1.1.5'
     implementation 'androidx.constraintlayout:constraintlayout-compose:1.0.1'
+
 
     //unit test resources
     testImplementation 'org.mockito:mockito-core:4.1.0'
