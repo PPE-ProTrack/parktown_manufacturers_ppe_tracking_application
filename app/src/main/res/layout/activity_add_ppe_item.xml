@@ -45,123 +45,138 @@
             android:layout_gravity="center_horizontal"
             android:text="New PPE Item"
             android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvMainContainer"
+        <LinearLayout
+            android:id="@+id/newPpeItem_LinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/white"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/dashboard_background_shape"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvMainContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_margin="16dp"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
-<!--                <TextView-->
-<!--                    android:id="@+id/ppeItemId_TextView"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Item ID"-->
-<!--                    android:textSize="24sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    android:layout_marginStart="16dp" />-->
-
-<!--                &lt;!&ndash; Species Name Input &ndash;&gt;-->
-<!--                <EditText-->
-<!--                    android:id="@+id/ppeItemId_EditText"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Enter Item ID"-->
-<!--                    android:textColorHint="@color/primary_grey"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:layout_marginStart="16dp"/>-->
-
-                <!-- Title -->
-                <TextView
-                    android:id="@+id/ppeItemName_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Item Name"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp" />
-
-                <!-- Species Name Input -->
-                <EditText
-                    android:id="@+id/ppeItemName_EditText"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Item Name"
-                    android:textColorHint="@color/primary_grey"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"/>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <!-- Date and Time Label -->
-                <TextView
-                    android:id="@+id/ppeItemQuantity_TextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quantity"
-                    android:textSize="24sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginStart="16dp"/>
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/ppeItemId_TextView"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:text="Item ID"-->
+                    <!--                    android:textSize="24sp"-->
+                    <!--                    android:textColor="@color/black"-->
+                    <!--                    android:layout_marginTop="16dp"-->
+                    <!--                    android:layout_marginStart="16dp" />-->
 
-                <!-- Date and Time Input -->
-                <EditText
-                    android:id="@+id/ppeItemQuantity_EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColorHint="@color/primary_grey"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginStart="16dp"
+                    <!--                &lt;!&ndash; Species Name Input &ndash;&gt;-->
+                    <!--                <EditText-->
+                    <!--                    android:id="@+id/ppeItemId_EditText"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:hint="Enter Item ID"-->
+                    <!--                    android:textColorHint="@color/primary_grey"-->
+                    <!--                    android:textColor="@color/black"-->
+                    <!--                    android:layout_marginTop="8dp"-->
+                    <!--                    android:layout_marginStart="16dp"/>-->
 
-                    />
+                    <!-- Title -->
+                    <TextView
+                        android:id="@+id/ppeItemName_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Item Name"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
-<!--                &lt;!&ndash; Location Label &ndash;&gt;-->
-<!--                <TextView-->
-<!--                    android:id="@+id/ppeItemDepartment_TextView"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Department:"-->
-<!--                    android:textSize="24sp"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    android:layout_marginStart="16dp"/>-->
+                    <!-- Species Name Input -->
+                    <EditText
+                        android:id="@+id/ppeItemName_EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:hint="Enter Item Name"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/primary_grey" />
 
-<!--                &lt;!&ndash; Location Input &ndash;&gt;-->
-<!--                <EditText-->
-<!--                    android:id="@+id/ppeItemDepartment_EditText"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:textColorHint="@color/primary_grey"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:layout_marginBottom="16dp"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:focusable="false"-->
-<!--                    android:clickable="false"-->
-<!--                    />-->
+                    <!-- Date and Time Label -->
+                    <TextView
+                        android:id="@+id/ppeItemQuantity_TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:text="Quantity"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    <!-- Date and Time Input -->
+                    <EditText
+                        android:id="@+id/ppeItemQuantity_EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/primary_grey"
 
+                        />
+
+                    <!--                &lt;!&ndash; Location Label &ndash;&gt;-->
+                    <!--                <TextView-->
+                    <!--                    android:id="@+id/ppeItemDepartment_TextView"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:text="Department:"-->
+                    <!--                    android:textSize="24sp"-->
+                    <!--                    android:textColor="@color/black"-->
+                    <!--                    android:layout_marginTop="16dp"-->
+                    <!--                    android:layout_marginStart="16dp"/>-->
+
+                    <!--                &lt;!&ndash; Location Input &ndash;&gt;-->
+                    <!--                <EditText-->
+                    <!--                    android:id="@+id/ppeItemDepartment_EditText"-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:textColorHint="@color/primary_grey"-->
+                    <!--                    android:textColor="@color/black"-->
+                    <!--                    android:layout_marginTop="8dp"-->
+                    <!--                    android:layout_marginBottom="16dp"-->
+                    <!--                    android:layout_marginStart="16dp"-->
+                    <!--                    android:focusable="false"-->
+                    <!--                    android:clickable="false"-->
+                    <!--                    />-->
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -172,7 +187,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cvMainContainer">
+            app:layout_constraintTop_toBottomOf="@id/newPpeItem_LinearLayout">
 
 
             <Button
