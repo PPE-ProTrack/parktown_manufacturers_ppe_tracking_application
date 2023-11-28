@@ -34,32 +34,6 @@ android {
         unitTests.all {
             useJUnitPlatform()
         }
-        // Specify the location for the unit test reports within the build directory
-        unitTests.all {
-            reports {
-
-                html.enabled = true
-                // You can customize the output directory as needed
-                html.outputLocation = file("${buildDir}/reports/tests")
-            }
-        }
-
-        // Specify the location for the instrumented test reports within the build directory
-        unitTests.all {
-            reports {
-
-                html.enabled = true
-                // You can customize the output directory as needed
-                html.outputLocation = file("${buildDir}/reports/instrumentedTests")
-            }
-        }
-
-        unitTests.all {
-            // Specify the desired location for the coverage file within the build directory
-            systemProperty "coverageFile", "${buildDir}/reports/coverage/coverage.ec"
-        }
-
-
 
     }
     buildTypes {
