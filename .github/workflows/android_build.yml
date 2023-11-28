@@ -3,6 +3,15 @@ name: Android Build
 on: pull_request
 
 jobs:
+  setup:
+      name: Setup
+      runs-on: ubuntu-latest
+      steps:
+        - name: Set up JDK 17
+          uses: actions/setup-java@v2
+          with:
+            distribution: 'temurin'
+            java-version: '17'
   test_job:
     name: Test
     runs-on: ubuntu-latest
