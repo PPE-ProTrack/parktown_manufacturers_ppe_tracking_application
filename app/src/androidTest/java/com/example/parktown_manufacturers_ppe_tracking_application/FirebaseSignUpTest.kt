@@ -24,23 +24,24 @@ class FirebaseSignUpTest {
     @Before
     fun setup() {
 
-        // Initialize Firebase for testing
-        FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
-
         // Launch the activity using ActivityScenario
         signUpScenario = ActivityScenario.launch(SignUpActivity::class.java)
-        signUpScenario.moveToState(Lifecycle.State.CREATED)
+
+        // Initialize Firebase for testing
+        signUpScenario.onActivity { activity ->
+            FirebaseApp.initializeApp(activity)
+        }
     }
 
     @Test
     fun testRegisterUser() {
         signUpScenario.onActivity { activity ->
             // Set up test data
-            activity.workEmail.setText("test2@example.com")
-            activity.name.setText("Johnda")
-            activity.surname.setText("Doeafd")
-            activity.password.setText("Soyo@975")
-            activity.confirmPassword.setText("Soyo@975")
+            activity.workEmail.setText("test5@gmail.com")
+            activity.name.setText("Joe")
+            activity.surname.setText("Doe")
+            activity.password.setText("Ndum@999")
+            activity.confirmPassword.setText("Ndum@999")
 
             // Simulate user registration
             activity.RegisterUser()
@@ -52,7 +53,7 @@ class FirebaseSignUpTest {
 
             // Optionally, you can check user properties or do more specific verifications
             // Example: Verify that the user's email matches the provided email
-            assertEquals("test2@example.com", user?.email)
+            assertEquals("test5@gmail.com", user?.email)
         }
     }
 }
