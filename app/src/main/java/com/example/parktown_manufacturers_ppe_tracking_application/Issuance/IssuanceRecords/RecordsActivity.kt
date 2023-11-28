@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.parktown_manufacturers_ppe_tracking_application.Dashboard.DashboardActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Department.DepartmentActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity
-import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuancePendingReturns.PendingReturnsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.RecordIssuanceActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemAdapter
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemData
@@ -149,6 +148,5 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
     }
 }
