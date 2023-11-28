@@ -32,9 +32,7 @@
         <activity
             android:name=".Issuance.IssuanceRecords.RecordsActivity"
             android:exported="false" />
-        <activity
-            android:name=".Issuance.IssuancePendingReturns.PendingReturnsActivity"
-            android:exported="false" />
+
         <activity
             android:name=".Employee.EmployeeDetails.EmployeeDetailsActivity"
             android:exported="false" />

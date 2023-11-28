@@ -21,9 +21,11 @@ import org.junit.Assert.assertNotNull
 @RunWith(AndroidJUnit4::class)
 class FirebaseSignInTest {
 
+
     private lateinit var signInScenario: ActivityScenario<SignInActivity>
     @Before
     fun setup() {
+
 
         // Launch the activity using ActivityScenario
         signInScenario = ActivityScenario.launch(SignInActivity::class.java)
@@ -32,6 +34,7 @@ class FirebaseSignInTest {
         signInScenario.onActivity { activity ->
             FirebaseApp.initializeApp(activity)
         }
+
 
 
     }
@@ -43,6 +46,7 @@ class FirebaseSignInTest {
             activity.login_email.setText("test5@gmail.com")
             activity.login_password.setText("Ndum@999")
 
+
             // Simulate user login
             activity.SignInUser()
 
@@ -51,9 +55,11 @@ class FirebaseSignInTest {
 
             Assert.assertNotNull("User should be logged in successfully", user)
 
+
             // Optionally, you can check user properties or do more specific verifications
             // Example: Verify that the user's email matches the provided email
             assertEquals("test5@gmail.com", user?.email)
+
         }
     }
 

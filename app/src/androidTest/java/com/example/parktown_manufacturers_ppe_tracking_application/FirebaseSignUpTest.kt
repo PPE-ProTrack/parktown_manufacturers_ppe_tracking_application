@@ -21,6 +21,7 @@ class FirebaseSignUpTest {
 
     private lateinit var signUpScenario: ActivityScenario<SignUpActivity>
 
+
     @Before
     fun setup() {
 
