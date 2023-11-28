@@ -86,7 +86,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Click button to create new issuance" />
+                        android:text="Click button to create new issuance"
+                        android:textColor="@color/colorPrimaryDark"/>
 
                 </LinearLayout>
 
@@ -113,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Available Items"
+                android:text="Available PPE Items"
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="25sp"
@@ -149,7 +150,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Available Items" />
+                        android:text="Available Items"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="15sp"/>
 
                     <TextView
                         android:id="@+id/avail_items_TextView"
@@ -157,7 +160,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Items: 9"
-                        android:textAlignment="viewEnd" />
+                        android:textSize="15sp"
+                        android:textAlignment="viewEnd"
+                        android:layout_marginEnd="20dp"
+                        android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
 
                 <!-- NestedScrollView -->

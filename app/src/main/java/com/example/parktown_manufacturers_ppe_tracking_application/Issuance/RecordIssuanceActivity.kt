@@ -23,7 +23,9 @@ class RecordIssuanceActivity : AppCompatActivity() {
     private lateinit var employeeSpinner: Spinner
     private lateinit var itemsSpinner: Spinner
     private lateinit var departmentEditText: EditText
-//    private  var empId_: Int = 0
+    private lateinit var infringementTextView: TextView
+
+    //    private  var empId_: Int = 0
 //    private  var itemId: Int = 0
 //    private var itemDescription: String = ""
     private var previousItemReturned: Boolean = true
@@ -49,6 +51,9 @@ class RecordIssuanceActivity : AppCompatActivity() {
         employeeSpinner = findViewById(R.id.empName_Spinner)
         currentDateEditText = findViewById(R.id.current_date_EditText)
         departmentEditText = findViewById(R.id.ppeItemDepartment_EditText)
+        infringementTextView = findViewById(R.id.infringement_TextView)
+
+
         database = FirebaseDatabase.getInstance()
 
         fetchItemsFromDatabase()
@@ -429,11 +434,14 @@ class RecordIssuanceActivity : AppCompatActivity() {
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
                 // Store the selected item information
                 selectedPpeItem = itemsList[position]
+                infringementTextView.text = "Was the returned the ${selectedPpeItem!!.itemDescription} last time?"
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
                 // Handle the case where nothing is selected
                 selectedPpeItem = null
+                infringementTextView.text = "Was the returned the item last time?"
+
             }
         }
     }

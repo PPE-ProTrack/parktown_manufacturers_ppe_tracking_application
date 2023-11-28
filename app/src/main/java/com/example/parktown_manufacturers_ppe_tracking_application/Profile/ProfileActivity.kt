@@ -15,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.parktown_manufacturers_ppe_tracking_application.Dashboard.DashboardActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Department.DepartmentActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuancePendingReturns.PendingReturnsActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.LoginRegister.SignInActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.LoginRegister.SignUpActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemsActivity
@@ -176,7 +177,7 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
             }
             R.id.nav_issuance -> {
-                val intent = Intent(this, PendingReturnsActivity::class.java)
+                val intent = Intent(this, RecordsActivity::class.java)
                 startActivity(intent)
             }
             R.id.nav_settings -> {
