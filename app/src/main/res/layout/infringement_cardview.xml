@@ -7,26 +7,28 @@
     android:layout_margin="10dp"
     app:cardBackgroundColor="@color/primary_grey"
     app:cardCornerRadius="15dp"
-    app:cardElevation="5dp">
+    app:cardElevation="5dp"
+    android:layout_gravity="center_horizontal"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp"
+        android:background="@drawable/firstname_view_shape">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="16dp">
+            >
 
             <TextView
                 android:id="@+id/ppeItemName_TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
-                android:textStyle="bold"
+                android:textSize="25sp"
                 android:text="Skull Cap"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"/>
@@ -46,7 +48,7 @@
                     android:id="@+id/not_returned_TextView_"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Not Returned: "
+                    android:text="Number of Infringements: "
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"/>

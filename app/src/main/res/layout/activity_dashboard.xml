@@ -34,6 +34,22 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent" />
 
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Create New Issuance"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:paddingHorizontal="10dp"/>
+
+
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -43,17 +59,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
 
             <LinearLayout
                 android:id="@+id/pending_returns_"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="0dp"
-                android:layout_weight="1"
                 android:background="@drawable/dashboard_background_shape"
                 android:orientation="vertical">
 
@@ -71,47 +86,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Pending Items" />
+                        android:text="Click button to create new issuance" />
 
-                    <TextView
-                        android:id="@+id/items_TextView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Items: 9"
-                        android:textAlignment="viewEnd" />
                 </LinearLayout>
-
-                <!-- NestedScrollView -->
-                <androidx.core.widget.NestedScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <!-- RecyclerView -->
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/dashboard_pending_RecyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:clipToPadding="false"
-                            android:padding="4dp"
-                            tools:listitem="@layout/dashboard_pending_returns_cardview" />
-
-                        <!-- ProgressBar -->
-                        <ProgressBar
-                            android:id="@+id/pending_progressBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:progressBackgroundTint="@color/_bg_color"
-                            android:visibility="gone" />
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
 
                 <!-- See More Button -->
                 <LinearLayout
@@ -119,16 +96,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
                     <Button
-                        android:id="@+id/pendingSeeMore_Button"
+                        android:id="@+id/createIssuanceButton"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
+                        android:layout_height="40dp"
                         android:background="@drawable/dashboard_button"
-                        android:text="See More"
+                        android:text="Create"
                         android:textSize="10sp" />
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvAvailableTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Available Items"
+                android:textAlignment="viewStart"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                android:paddingHorizontal="10dp"/>
 
             <!-- Available Items Section -->
             <LinearLayout
