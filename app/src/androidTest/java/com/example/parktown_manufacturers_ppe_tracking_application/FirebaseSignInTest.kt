@@ -25,12 +25,13 @@ class FirebaseSignInTest {
         @Before
         fun setup() {
 
-            // Initialize Firebase for testing
-            FirebaseApp.initializeApp(ApplicationProvider.getApplicationContext())
-
             // Launch the activity using ActivityScenario
             signInScenario = ActivityScenario.launch(SignInActivity::class.java)
-            signInScenario.moveToState(Lifecycle.State.CREATED)
+
+            // Initialize Firebase for testing
+            signInScenario.onActivity { activity ->
+                FirebaseApp.initializeApp(activity)
+            }
 
 
         }
@@ -40,8 +41,8 @@ class FirebaseSignInTest {
         fun testLoginUser() {
             signInScenario.onActivity { activity ->
                 // Set up test data
-                activity.login_email.setText("test3@example.com")
-                activity.login_password.setText("password")
+                activity.login_email.setText("test5@gmail.com")
+                activity.login_password.setText("Ndum@999")
 
                 // Simulate user login
                 activity.SignInUser()
@@ -53,7 +54,7 @@ class FirebaseSignInTest {
 
                 // Optionally, you can check user properties or do more specific verifications
                 // Example: Verify that the user's email matches the provided email
-                //assertEquals("test@example.com", user?.email)
+                assertEquals("test5@gmail.com", user?.email)
             }
         }
 
