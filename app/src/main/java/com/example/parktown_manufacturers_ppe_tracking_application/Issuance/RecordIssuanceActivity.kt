@@ -35,6 +35,8 @@ class RecordIssuanceActivity : AppCompatActivity() {
     private var selectedPpeItem: PpeItemData? = null
     private var selectedEmployee: EmployeeData? = null
     var selectedOption: String = ""
+    private lateinit var database: FirebaseDatabase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,7 @@ class RecordIssuanceActivity : AppCompatActivity() {
         employeeSpinner = findViewById(R.id.empName_Spinner)
         currentDateEditText = findViewById(R.id.current_date_EditText)
         departmentEditText = findViewById(R.id.ppeItemDepartment_EditText)
+        database = FirebaseDatabase.getInstance()
 
         fetchItemsFromDatabase()
 
@@ -111,7 +114,9 @@ class RecordIssuanceActivity : AppCompatActivity() {
 
                     // Save the RecordsData object to Firebase
                     saveRecordsDataToFirebase(issuanceRecord)
-                    selectedPpeItem?.available = selectedPpeItem?.available?.minus(1)!!
+                    // Update the available quantity in Firebase
+                    val newAvailableQuantity = selectedPpeItem?.available?.minus(1) ?: 0
+                    updateAvailableQuantityInFirebase(itemId, newAvailableQuantity)
 
                     // Process records and infringements
 //                    processRecordsAndInfringements(selectedEmployeeId, selectedItemName)
@@ -164,13 +169,31 @@ class RecordIssuanceActivity : AppCompatActivity() {
 
                     // Save the RecordsData object to Firebase
                     saveRecordsDataToFirebase(issuanceRecord)
-                    selectedPpeItem?.available = selectedPpeItem?.available?.minus(1)!!
+                    val newAvailableQuantity = selectedPpeItem?.available?.minus(1) ?: 0
+                    updateAvailableQuantityInFirebase(itemId, newAvailableQuantity)
 
                 }
+                val intent = Intent(this, RecordsActivity::class.java)
+                startActivity(intent)
             }
         }
 
     }
+    private fun updateAvailableQuantityInFirebase(itemId: String, newAvailableQuantity: Int) {
+        val dbReference = database.getReference("PpeItems").child(itemId) // Convert itemId to String
+
+        // Update the available quantity
+        dbReference.child("available").setValue(newAvailableQuantity)
+            .addOnSuccessListener {
+                // Additional actions after successful update
+                // For example, you might want to update UI, show a toast, etc.
+                Toast.makeText(this, "Available quantity updated successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Failed to update available quantity: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
 
     // Function to generate a unique record ID using timestamp
     private fun generateUniqueRecordId(): Int {
@@ -308,15 +331,20 @@ class RecordIssuanceActivity : AppCompatActivity() {
                 val itemsList = mutableListOf<PpeItemData>()
 
                 for (snapshot in dataSnapshot.children) {
-                    val ppeItemData = snapshot.getValue(PpeItemData::class.java)
-                    ppeItemData?.let {
-                        itemsList.add(it)
+                    val itemId = snapshot.child("itemId").getValue(String::class.java)
+                    val itemDescription = snapshot.child("itemDescription").getValue(String::class.java)
+                    val total = snapshot.child("total").getValue(Int::class.java)
+                    val available = snapshot.child("available").getValue(Int::class.java)
+
+                    if (itemId != null && itemDescription != null && total != null && available != null) {
+                        val ppeItemData = PpeItemData(itemId, itemDescription, total, available)
+                        itemsList.add(ppeItemData)
                     }
                 }
-
                 // Populate the Spinner with the fetched items
                 populateSpinner(itemsList)
             }
+
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Handle errors if needed
