@@ -29,39 +29,69 @@
             layout= "@layout/app_toolbar_main"
             />
 
-        <androidx.core.widget.NestedScrollView
+        <TextView
+            android:id="@+id/ppeItems_TextView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="59dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PPE Items List"
+            android:textAlignment="viewStart"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:paddingHorizontal="10dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-            <LinearLayout
+        <LinearLayout
+            android:id="@+id/newPpeItem_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/dashboard_background_shape"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ppeItems_TextView"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/ppeItems_TextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/ppeItem_RecyclerView"
-                    android:padding="4dp"
-                    android:clipToPadding="false"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/ppeitem_cardview" />
+                    android:orientation="vertical">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="visible"
-                    android:progressBackgroundTint="@color/_bg_color"/>
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ppeItem_RecyclerView"
+                        android:padding="4dp"
+                        android:clipToPadding="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/ppeitem_cardview" />
 
-        </androidx.core.widget.NestedScrollView>
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="visible"
+                        android:progressBackgroundTint="@color/_bg_color"/>
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/AddPpeItems_FloatingActionButton"

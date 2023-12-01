@@ -12,13 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp"
+        android:background="@drawable/firstname_view_shape">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/departmentName_TextView"
@@ -26,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textColor="@color/black"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="10dp"
+                android:text="sdfsfsfsd"/>
 
         </LinearLayout>
         <LinearLayout
@@ -45,7 +47,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textColor="@color/black"
-                    android:layout_marginStart="10dp"/>
+                    android:layout_marginStart="10dp"
+                    android:text="dfsdfdsdfss"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -123,8 +123,11 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                     employee?.let { employees.add(it) }
                 }
 
+                // Sort employees alphabetically based on the 'name' property
+                val sortedEmployees = employees.sortedBy { it.employeeName }.toMutableList()
+
                 // Update EmployeeManager.employeeList with the fetched employees
-                employeeList = employees
+                employeeList = sortedEmployees
 
                 // Populate the RecyclerView
                 populateRecycler()

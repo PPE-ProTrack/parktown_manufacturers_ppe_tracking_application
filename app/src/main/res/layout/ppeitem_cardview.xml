@@ -12,20 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="10dp"
+        android:background="@drawable/firstname_view_shape">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="10dp"
             android:layout_gravity="center_horizontal">
 
             <TextView
                 android:id="@+id/ppeItemName_TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="25sp"
                 android:textColor="@color/black"
                 android:layout_marginStart="10dp"
                 android:text="Item"/>
@@ -48,7 +49,7 @@
                     android:id="@+id/ppeItemTotal_TextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textColor="@color/black"
                     android:layout_marginStart="10dp"
                     android:text="Total:"/>
@@ -67,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textColor="@color/black"
                     android:text="Available:"/>
             </LinearLayout>

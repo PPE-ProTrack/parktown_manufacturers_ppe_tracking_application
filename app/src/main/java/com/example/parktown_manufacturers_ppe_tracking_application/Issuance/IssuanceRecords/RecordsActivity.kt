@@ -165,6 +165,5 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     override fun onItemClick(position: Int) {
-        TODO("Not yet implemented")
     }
 }

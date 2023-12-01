@@ -35,6 +35,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 
 
+
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PpeItemAdapter.OnItemClickListener {
 
     private lateinit var toolbar : Toolbar
@@ -49,7 +50,9 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var ppeItemList: MutableList<PpeItemData>
     private lateinit var ppeItemAdapter: PpeItemAdapter
     private lateinit var avail_items_TextView: TextView
+
     private lateinit var auth: FirebaseAuth
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,6 +89,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         navigationView.setNavigationItemSelectedListener(this)
 
+
         // Find the TextView within the header view
         val headerView = navigationView.getHeaderView(0)
         val usernameTextView = headerView.findViewById<Button>(R.id.navbar_username)
@@ -109,8 +113,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             val intent = Intent(this, RecordIssuanceActivity::class.java)
             startActivity(intent)
         }
-
-
 
 
         database = FirebaseDatabase.getInstance()
@@ -140,6 +142,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         val databaseReference = FirebaseDatabase.getInstance().reference.child("PpeItems")
 
+
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val newPpeItemsList = mutableListOf<PpeItemData>()
@@ -162,6 +165,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 // Directly manipulate the list in the activity
                 ppeItemList.clear()
                 ppeItemList.addAll(newPpeItemsList)
+
 
                 //                avail_items_TextView.setText("Items: $ppeItemList.size")
                 avail_items_TextView.text = "Items: ${ppeItemList.size}"

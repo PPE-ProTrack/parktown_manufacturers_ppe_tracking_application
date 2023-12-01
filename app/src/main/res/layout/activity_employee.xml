@@ -29,41 +29,72 @@
             layout= "@layout/app_toolbar_main"
             />
 
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/recycler_View"
+        <TextView
+            android:id="@+id/employees_TextView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Employees"
+            android:layout_marginTop="10dp"
+            android:textSize="25sp"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="10dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/newPpeItem_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/dashboard_background_shape"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/employees_TextView"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/recycler_View"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/employee_RecyclerView"
-                    android:padding="4dp"
-                    android:clipToPadding="false"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/employee_cardview" />
+                    android:orientation="vertical">
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="visible"
-                    android:progressBackgroundTint="@color/_bg_color"/>
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/employee_RecyclerView"
+                        android:padding="4dp"
+                        android:clipToPadding="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/employee_cardview" />
 
-        </androidx.core.widget.NestedScrollView>
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="visible"
+                        android:progressBackgroundTint="@color/_bg_color"/>
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
         <!-- Empty message TextView -->
 
         <TextView

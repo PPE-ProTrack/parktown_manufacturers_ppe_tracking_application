@@ -23,7 +23,9 @@ class RecordIssuanceActivity : AppCompatActivity() {
     private lateinit var employeeSpinner: Spinner
     private lateinit var itemsSpinner: Spinner
     private lateinit var departmentEditText: EditText
-//    private  var empId_: Int = 0
+    private lateinit var infringementTextView: TextView
+
+    //    private  var empId_: Int = 0
 //    private  var itemId: Int = 0
 //    private var itemDescription: String = ""
     private var previousItemReturned: Boolean = true
@@ -49,6 +51,9 @@ class RecordIssuanceActivity : AppCompatActivity() {
         employeeSpinner = findViewById(R.id.empName_Spinner)
         currentDateEditText = findViewById(R.id.current_date_EditText)
         departmentEditText = findViewById(R.id.ppeItemDepartment_EditText)
+        infringementTextView = findViewById(R.id.infringement_TextView)
+
+
         database = FirebaseDatabase.getInstance()
 
         fetchItemsFromDatabase()
@@ -429,133 +434,17 @@ class RecordIssuanceActivity : AppCompatActivity() {
             override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
                 // Store the selected item information
                 selectedPpeItem = itemsList[position]
+                infringementTextView.text = "Was the returned the ${selectedPpeItem!!.itemDescription} last time?"
             }
 
             override fun onNothingSelected(parentView: AdapterView<*>?) {
                 // Handle the case where nothing is selected
                 selectedPpeItem = null
+                infringementTextView.text = "Was the returned the item last time?"
+
             }
         }
     }
 
-//     Function to search for the most recent issuance and update or create an infringement
-//    call method after no is clicked for returned item
-//    private fun processRecordsAndInfringements(empId: Int, itemDescription: String) {
-//        Log.d("processRecordsAndInfringements Called", "$itemDescription, $empId")
-//
-//        searchIssuance(empId, itemDescription) { recordsData ->
-//            Log.d("recordsData", recordsData.toString() )
-//            if (recordsData != null) {
-//
-//                // Fetch the current infringement for the item description
-//                val itemDescription = recordsData.itemDescription
-//                fetchInfringement(empId, itemDescription) { infringement ->
-//                    if (infringement != null) {
-//                        // If an infringement object with the same item description exists, increase the count
-//                        infringement.itemNotReturnedCount += 1
-//                        updateInfringement(infringement)
-//                    } else {
-//                        // If no infringement object with the same item description exists, create a new one
-//                        val newInfringement = InfringementsData(
-//                            infringementId = "",
-//                            empId = recordsData.empId,
-//                            itemId = recordsData.itemId,
-//                            itemDescription = recordsData.itemDescription,
-//                            itemNotReturnedCount = 1
-//                        )
-//                        Log.d("infringement object", newInfringement.toString())
-//                        createInfringement(newInfringement)
-//
-//                    }
-//                }
-//            }else{
-//                //if the user is new and this is their first issuance for specific item
-//            }
-//
-//        }
-//    }
-//
-//    // Function to fetch the most recent issuance
-//    private fun searchIssuance(empId_: Int, itemDescription_: String, callback: (RecordsData?) -> Unit) {
-//        val recordsReference2: DatabaseReference = FirebaseDatabase.getInstance().getReference("issuance_records")
-//        Log.d("query","$empId_ $itemDescription_")
-//        // Query the database
-//        val searchKey = "$empId_ $itemDescription_"
-//        val str = searchKey.split(" ")
-//        val searchKey1 = str[0].toInt()
-//        val searchKey2 = str[1]
-//        Log.d("searchKey1",searchKey1.toString())
-//        //val query: Query = recordsReference.orderByChild("empId_itemId").equalTo("$empId_$itemDescription_").limitToLast(1)
-//        val query: Query = recordsReference2.orderByChild("empId").equalTo(searchKey1.toDouble())
-//        Log.d("query",query.toString())
-//        query.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    val recordsList = mutableListOf<RecordsData>()
-//
-//                    Log.d("dataSnapshot",dataSnapshot.toString())
-//                    for (recordSnapshot in dataSnapshot.children) {
-//                        val record = recordSnapshot.getValue(RecordsData::class.java)
-//                        if (record != null) {
-//                            recordsList.add(record)
-//                        }
-//                    }
-//
-//                    Log.d("recordsList",recordsList.toString())
-//                    // var filteredRecords = mutableListOf<RecordsData>()
-//                    Log.d("recordsList",searchKey1.toString())
-//                    val filteredRecords = recordsList.filter {  it.itemDescription.trim() == searchKey2.trim()  }
-//                    Log.d("filteredRecords",filteredRecords.toString())
-//
-//                    // Find the most recent issuance
-//                    val mostRecentIssuance = filteredRecords.maxByOrNull { it.issuanceDate }
-//                    callback(mostRecentIssuance)
-//                } else {
-//                    // No matching records found
-//                    callback(null)
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                // Handle the error
-//                callback(null)
-//            }
-//        })
-//    }
-//
-//    // Function to fetch the current infringement for the item description
-//   private fun fetchInfringement(empId_: Int, itemDescription_: String, callback: (InfringementsData?) -> Unit) {
-//        // Query the database
-//        val query: Query = infringementsReference.orderByChild("empId_itemId").equalTo("$empId_$itemDescription_").limitToLast(1)
-//
-//        query.addListenerForSingleValueEvent(object : ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    val infringement = dataSnapshot.children.first().getValue(InfringementsData::class.java)
-//                    callback(infringement)
-//                } else {
-//                    // No matching infringement found
-//                    callback(null)
-//                }
-//            }
-//
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                // Handle the error
-//                callback(null)
-//            }
-//        })
-//    }
-//
-//    // Function to update an existing infringement
-//    private fun updateInfringement(infringement: InfringementsData) {
-//        infringementsReference.child(infringement.infringementId).setValue(infringement)
-//    }
-//
-//    // Function to create a new infringement
-//    private fun createInfringement(infringement: InfringementsData) {
-//        val newInfringementRef = infringementsReference.push()
-//        infringement.infringementId = newInfringementRef.key.toString() // Assign the generated key as the infringementId
-//        Log.d("infringement object", infringement.toString())
-//        newInfringementRef.setValue(infringement)
-//    }
+
 }
