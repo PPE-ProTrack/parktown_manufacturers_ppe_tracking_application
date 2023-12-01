@@ -29,12 +29,7 @@
             android:id="@+id/nav_issuance"
             android:icon="@drawable/icon_send"
             android:title="@string/menu_issuance" />
-        <item
-            android:id="@+id/nav_settings"
-            android:checkable="true"
-            android:enabled="true"
-            android:icon="@drawable/icon_settings_"
-            android:title="@string/menu_settings" />
+
 
 
 

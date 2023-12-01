@@ -68,6 +68,10 @@ class DepartmentDetailsActivity : AppCompatActivity(), EmployeeAdapter.OnItemCli
         Log.d("deptId", deptId.toString())
         Log.d("deptName", deptName ?: "DeptName is null")
 
+        toolbar.setTitle(deptName)
+        toolbar.titleMarginStart= 150
+        setSupportActionBar(toolbar)
+
         // Check if deptName is not null before applying SpannableString
         deptName?.let {
             val spannableString = SpannableString(it)
