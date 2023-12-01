@@ -1,5 +1,6 @@
 package com.example.parktown_manufacturers_ppe_tracking_application.Dashboard
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -24,9 +25,15 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.Reco
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemAdapter
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemData
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemsActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.Profile.ProfileActivity
+
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
+
 
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PpeItemAdapter.OnItemClickListener {
@@ -44,11 +51,15 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     private lateinit var ppeItemAdapter: PpeItemAdapter
     private lateinit var avail_items_TextView: TextView
 
+    private lateinit var auth: FirebaseAuth
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+        auth = Firebase.auth
         toolbar = findViewById(R.id.toolbar)
         navigationView = findViewById(R.id.nav_view)
         drawerLayout = findViewById(R.id.dashboard_drawerLayout)
@@ -60,6 +71,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         avail_items_TextView = findViewById(R.id.avail_items_TextView)
 
 
+        //get current user
+        val currentUser = auth.currentUser
 
         toolbar.setTitle("Dashboard")
         setSupportActionBar(toolbar)
@@ -76,6 +89,23 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         navigationView.setNavigationItemSelectedListener(this)
 
+
+        // Find the TextView within the header view
+        val headerView = navigationView.getHeaderView(0)
+        val usernameTextView = headerView.findViewById<Button>(R.id.navbar_username)
+
+        // Update the content of the TextView
+        if (currentUser != null) {
+            val fullName: String? = currentUser.displayName
+            val firstName = fullName?.split(" ")?.getOrNull(0)
+            usernameTextView.text = firstName
+        }
+        usernameTextView.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+        navigationView.setCheckedItem(R.id.nav_dashboard)
+
 //        val AvailablerecyclerView: RecyclerView = findViewById(R.id.dashboard_available_RecyclerView)
 
         createIssuanceButton.setOnClickListener {
@@ -83,8 +113,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             val intent = Intent(this, RecordIssuanceActivity::class.java)
             startActivity(intent)
         }
-
-
 
 
         database = FirebaseDatabase.getInstance()
@@ -114,6 +142,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
 
         val databaseReference = FirebaseDatabase.getInstance().reference.child("PpeItems")
 
+
         databaseReference.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val newPpeItemsList = mutableListOf<PpeItemData>()
@@ -136,6 +165,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 // Directly manipulate the list in the activity
                 ppeItemList.clear()
                 ppeItemList.addAll(newPpeItemsList)
+
 
                 //                avail_items_TextView.setText("Items: $ppeItemList.size")
                 avail_items_TextView.text = "Items: ${ppeItemList.size}"
@@ -217,10 +247,6 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.nav_issuance -> {
                 val intent = Intent(this, RecordsActivity::class.java)
                 startActivity(intent)
-            }
-            R.id.nav_settings -> {
-                //val intent = Intent(this, SettingsActivity::class.java)
-                //startActivity(intent)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

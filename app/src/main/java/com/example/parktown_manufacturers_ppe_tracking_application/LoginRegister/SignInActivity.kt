@@ -14,7 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class SignInActivity : AppCompatActivity() {
-    private lateinit var create_account: Button
+   // private lateinit var create_account: Button
     private lateinit var login_button: Button
     lateinit var login_email: EditText
     lateinit var login_password: EditText
@@ -28,7 +28,7 @@ class SignInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
 
         auth = Firebase.auth
-        create_account = findViewById(R.id.dont_have_an_account_Button)
+       // create_account = findViewById(R.id.dont_have_an_account_Button)
         login_email = findViewById(R.id.email_editext)
         login_password = findViewById(R.id.password_edittext)
         login_button = findViewById(R.id.login_button)
@@ -48,65 +48,25 @@ class SignInActivity : AppCompatActivity() {
             login_password.setSelection(login_password.text.length)
         }
         //Open register screen
-        create_account.setOnClickListener {
-
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-        }
+//        create_account.setOnClickListener {
+//
+//            val intent = Intent(this, SignUpActivity::class.java)
+//            startActivity(intent)
+//        }
 
         //verify user details
         login_button.setOnClickListener {
             val userEmail = login_email.text.toString()
             val userPassword = login_password.text.toString()
-            val numberRegex = Regex(".*\\d.*")
-            val specialCharRegex = Regex(".*[@#\$!].*")
-            val capitalLetterregex = Regex("[A-Z]")
 
+            val isValidInput = validateSignInInput(userEmail, userPassword)
 
-            progressbar.visibility = View.VISIBLE
-            create_account.visibility = View.INVISIBLE
-
-
-            if (TextUtils.isEmpty(userEmail) || !Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
-                login_email.error = "Please enter a valid email address"
-                login_email.requestFocus()
+            if (isValidInput) {
+                SignInUser()
+            } else {
                 progressbar.visibility = View.GONE
-                create_account.visibility = View.VISIBLE
-                return@setOnClickListener
+                //create_account.visibility = View.VISIBLE
             }
-
-            if (!userPassword.matches(numberRegex)) {
-                login_password.error = "Password must contain at least one number"
-                login_password.requestFocus()
-                progressbar.visibility = View.GONE
-                create_account.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            if (!userPassword.matches(specialCharRegex)) {
-                login_password.error = "Password must contain at least one of @, #, $, !"
-                login_password.requestFocus()
-                progressbar.visibility = View.GONE
-                create_account.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-            if (!capitalLetterregex.containsMatchIn(userPassword)) {
-                login_password.error = "Password must contain at least one capital letter."
-                login_password.requestFocus()
-                progressbar.visibility = View.GONE
-                create_account.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            if (userPassword.length !in 8..15) {
-                login_password.error = "Password must be 8-15 characters long"
-                login_password.requestFocus()
-                progressbar.visibility = View.GONE
-                create_account.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            SignInUser()
 
         }
     }
@@ -116,12 +76,12 @@ class SignInActivity : AppCompatActivity() {
         val password = login_password.text.toString()
 
         progressbar.visibility = View.VISIBLE
-        create_account.visibility = View.INVISIBLE
+        //create_account.visibility = View.INVISIBLE
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 progressbar.visibility = View.GONE
-                create_account.visibility = View.VISIBLE
+                //create_account.visibility = View.VISIBLE
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
 
@@ -143,4 +103,55 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
+    fun validateSignInInput(userEmail : String,  userPassword: String): Boolean {
+
+        //the code was taken from Medium
+        //Link: https://betulnecanli.medium.com/regular-expressions-regex-in-kotlin-a2eaeb2cd113
+        //author: Betul necanli
+        //Accessed 20 November 2023
+
+        val numberRegex = Regex(".*\\d.*")
+        val specialCharRegex = Regex(".*[@#\$!].*")
+        val capitalLetterregex = Regex("[A-Z]")
+
+
+        if (TextUtils.isEmpty(userEmail) || !Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+            login_email.error = "Please enter a valid email address"
+            login_email.requestFocus()
+
+            return false
+        }
+
+        if (!userPassword.matches(numberRegex)) {
+            login_password.error = "Password must contain at least one number"
+            login_password.requestFocus()
+
+            return false
+        }
+
+        if (!userPassword.matches(specialCharRegex)) {
+            login_password.error = "Password must contain at least one of @, #, $, !"
+            login_password.requestFocus()
+
+            return false
+        }
+        if (!capitalLetterregex.containsMatchIn(userPassword)) {
+            login_password.error = "Password must contain at least one capital letter."
+            login_password.requestFocus()
+
+            return false
+        }
+
+        if (userPassword.length !in 8..15) {
+            login_password.error = "Password must be 8-15 characters long"
+            login_password.requestFocus()
+
+            return false
+        }
+
+
+        // Add more validation logic here if needed
+
+        return true
+    }
 }

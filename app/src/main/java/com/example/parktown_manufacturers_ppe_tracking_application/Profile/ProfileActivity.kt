@@ -14,7 +14,6 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.parktown_manufacturers_ppe_tracking_application.Dashboard.DashboardActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Department.DepartmentActivity
-import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuancePendingReturns.PendingReturnsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.LoginRegister.SignInActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.LoginRegister.SignUpActivity
@@ -61,7 +60,7 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         //Open register screen
         create_account.setOnClickListener {
-
+            Firebase.auth.signOut()
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
@@ -150,7 +149,9 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
         // Update the content of the TextView
         if (currentUser != null) {
-            usernameTextView.text = currentUser.email
+            val fullName: String? = currentUser.displayName
+            val firstName = fullName?.split(" ")?.getOrNull(0)
+            usernameTextView.text = firstName
         }
         usernameTextView.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
@@ -180,10 +181,7 @@ class ProfileActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                 val intent = Intent(this, RecordsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_settings -> {
-                //val intent = Intent(this, SettingsActivity::class.java)
-                //startActivity(intent)
-            }
+
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

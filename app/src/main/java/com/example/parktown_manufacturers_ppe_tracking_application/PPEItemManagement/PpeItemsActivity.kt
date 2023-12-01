@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Spinner
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -20,10 +21,14 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Employee.Empl
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsAdapter
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsData
+import com.example.parktown_manufacturers_ppe_tracking_application.Profile.ProfileActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 
 class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener , PpeItemAdapter.OnItemClickListener {
 
@@ -36,6 +41,7 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var recyclerView: RecyclerView
     private lateinit var database: FirebaseDatabase
     private lateinit var recordsReference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
 
 
@@ -43,6 +49,7 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ppe_items)
 
+        auth = Firebase.auth
         toolbar = findViewById(R.id.toolbar)
         navigationView = findViewById(R.id.nav_view)
         drawerLayout = findViewById(R.id.ppeItem_drawerLayout)
@@ -50,7 +57,9 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         progressbar.bringToFront()
         progressbar.visibility = View.VISIBLE
 
-//        ppeItemsAdapter = PpeItemAdapter(ppeItemsList,this)
+
+        //get current user
+        val currentUser = auth.currentUser
 
         //Setting the name of the page in the toolbar
         toolbar.setTitle("PPE Items")
@@ -67,6 +76,23 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         navigationView.setNavigationItemSelectedListener(this)
+
+        // Find the TextView within the header view
+        val headerView = navigationView.getHeaderView(0)
+        val usernameTextView = headerView.findViewById<Button>(R.id.navbar_username)
+
+        // Update the content of the TextView
+        if (currentUser != null) {
+            val fullName: String? = currentUser.displayName
+            val firstName = fullName?.split(" ")?.getOrNull(0)
+            usernameTextView.text = firstName
+        }
+        usernameTextView.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+        navigationView.setCheckedItem(R.id.nav_ppe_items)
+
 
         database = FirebaseDatabase.getInstance()
         recordsReference = database.getReference("PpeItems")
@@ -117,10 +143,7 @@ class PpeItemsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
                 val intent = Intent(this, RecordsActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_settings -> {
-//                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-            }
+
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

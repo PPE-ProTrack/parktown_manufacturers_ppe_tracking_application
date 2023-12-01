@@ -1,5 +1,7 @@
 package com.example.parktown_manufacturers_ppe_tracking_application.Employee
 
+
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -15,12 +17,15 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.parktown_manufacturers_ppe_tracking_application.Dashboard.DashboardActivity
+
 import com.example.parktown_manufacturers_ppe_tracking_application.Department.DepartmentActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity.EmployeeManager.employeeList
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeDetails.EmployeeDetailsActivity
+
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.IssuanceRecords.RecordsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemsActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Profile.ProfileActivity
+
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -89,7 +94,9 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
 
         // Update the content of the TextView
         if (currentUser != null) {
-            usernameTextView.text = currentUser.email
+            val fullName: String? = currentUser.displayName
+            val firstName = fullName?.split(" ")?.getOrNull(0)
+            usernameTextView.text = firstName
         }
         usernameTextView.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
@@ -172,10 +179,6 @@ class EmployeeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
             R.id.nav_issuance -> {
                 val intent = Intent(this, RecordsActivity::class.java)
                 startActivity(intent)
-            }
-            R.id.nav_settings -> {
-                //val intent = Intent(this, SettingsActivity::class.java)
-                //startActivity(intent)
             }
         }
         drawerLayout.closeDrawer(GravityCompat.START)

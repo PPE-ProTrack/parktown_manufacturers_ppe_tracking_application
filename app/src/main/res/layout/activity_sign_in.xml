@@ -135,19 +135,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_view" />
 
-    <Button
-        android:id="@+id/dont_have_an_account_Button"
-        android:layout_width="249dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="29dp"
-        android:background="#02FFFFFF"
-        android:text="@string/dont_have_an_account__string"
-        android:textColor="@color/white"
-        android:textSize="16sp"
+<!--    <Button-->
+<!--        android:id="@+id/dont_have_an_account_Button"-->
+<!--        android:layout_width="249dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="29dp"-->
+<!--        android:background="#02FFFFFF"-->
+<!--        android:text="@string/dont_have_an_account__string"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:textSize="16sp"-->
 
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_button" />
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/login_button" />-->
 
     <ProgressBar
         android:id="@+id/login_progressBar"

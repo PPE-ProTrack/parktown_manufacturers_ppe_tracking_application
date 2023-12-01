@@ -31,9 +31,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/logout_profile"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+
+            android:layout_marginTop="11dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+
             android:background="@color/colorPrimary"
             android:text="Change Password"
             android:textColor="@color/black" />
@@ -43,10 +47,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/change_password_button"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="183dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="22dp"
             android:backgroundTint="@color/_bg_color"
             android:text="Add New User"
             android:textColor="@color/black" />
@@ -73,9 +79,9 @@
         <Button
             android:id="@+id/save_profile"
             android:alpha="0.95"
-            android:layout_marginStart="300dp"
+            android:layout_marginStart="290dp"
             android:layout_marginTop="10dp"
-            android:layout_width="367dp"
+            android:layout_width="100dp"
             android:layout_height="48dp"
             android:text="Save"
             android:background="@color/primaryColor"

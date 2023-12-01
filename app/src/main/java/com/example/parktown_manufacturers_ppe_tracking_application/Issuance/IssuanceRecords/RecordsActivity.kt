@@ -17,13 +17,15 @@ import com.example.parktown_manufacturers_ppe_tracking_application.Dashboard.Das
 import com.example.parktown_manufacturers_ppe_tracking_application.Department.DepartmentActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Employee.EmployeeActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.Issuance.RecordIssuanceActivity
-import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemAdapter
-import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemData
 import com.example.parktown_manufacturers_ppe_tracking_application.PPEItemManagement.PpeItemsActivity
+import com.example.parktown_manufacturers_ppe_tracking_application.Profile.ProfileActivity
 import com.example.parktown_manufacturers_ppe_tracking_application.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 
 class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener
     , RecordsAdapter.OnItemClickListener {
@@ -37,12 +39,13 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     private lateinit var recordsReference: DatabaseReference
     private lateinit var recordsList: MutableList<RecordsData>
     private lateinit var recordsAdapter: RecordsAdapter
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_records)
 
-
+        auth = Firebase.auth
         toolbar = findViewById(R.id.toolbar)
         navigationView = findViewById(R.id.nav_view)
         drawerLayout = findViewById(R.id.records_drawerLayout)
@@ -50,6 +53,8 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         progressbar.bringToFront()
         progressbar.visibility = View.VISIBLE
 
+        //get current user
+        val currentUser = auth.currentUser
 
 
         toolbar.setTitle("Issuance")
@@ -66,6 +71,21 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         toggle.syncState()
 
         navigationView.setNavigationItemSelectedListener(this)
+        // Find the TextView within the header view
+        val headerView = navigationView.getHeaderView(0)
+        val usernameTextView = headerView.findViewById<Button>(R.id.navbar_username)
+
+        // Update the content of the TextView
+        if (currentUser != null) {
+            val fullName: String? = currentUser.displayName
+            val firstName = fullName?.split(" ")?.getOrNull(0)
+            usernameTextView.text = firstName
+        }
+        usernameTextView.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
+        navigationView.setCheckedItem(R.id.nav_issuance)
 
         database = FirebaseDatabase.getInstance()
         recordsReference = database.getReference("issuance_records")
@@ -138,10 +158,7 @@ class RecordsActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
             R.id.nav_issuance -> {
 //
             }
-            R.id.nav_settings -> {
-//                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-            }
+
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true

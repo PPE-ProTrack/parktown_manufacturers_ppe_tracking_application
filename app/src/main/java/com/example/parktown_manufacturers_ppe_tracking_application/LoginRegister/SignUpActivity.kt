@@ -66,90 +66,21 @@ class SignUpActivity : AppCompatActivity() {
 
         //register new user
         request_btn.setOnClickListener {
-
-
             val userEmail = workEmail.text.toString()
             val userName = name.text.toString()
             val userSurname = surname.text.toString()
             val userPassword = password.text.toString()
             val userConfirmPassword = confirmPassword.text.toString()
 
-            progressbar.visibility = View.VISIBLE
-            login.visibility = View.INVISIBLE
-
-            val numberRegex = Regex(".*\\d.*")
-            val specialCharRegex = Regex(".*[@#\$!].*")
-            val capitalLetterregex = Regex("[A-Z]")
+            val isValidInput = validateInput(userEmail, userName, userSurname, userPassword, userConfirmPassword)
 
 
-
-            progressbar.visibility = View.VISIBLE
-            login.visibility = View.INVISIBLE
-
-            if (TextUtils.isEmpty(userName)) {
-                name.error = "Please enter your name"
-                name.requestFocus()
+            if (isValidInput) {
+                RegisterUser()
+            } else {
                 progressbar.visibility = View.GONE
                 login.visibility = View.VISIBLE
-                return@setOnClickListener
             }
-
-            if (TextUtils.isEmpty(userSurname)) {
-                surname.error = "Please enter your surname"
-                surname.requestFocus()
-                progressbar.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            if (TextUtils.isEmpty(userEmail) || !Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
-                workEmail.error = "Please enter a valid email address"
-                workEmail.requestFocus()
-                progressbar.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-            if (!capitalLetterregex.containsMatchIn(userPassword)) {
-                password.error = "Password must contain at least one capital letter."
-                password.requestFocus()
-                progressbar.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-            if (!userPassword.matches(numberRegex)) {
-                password.error = "Password must contain at least one number"
-                password.requestFocus()
-                progressbar.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            if (!userPassword.matches(specialCharRegex)) {
-                password.error = "Password must contain at least one of @, #, $, !"
-                password.requestFocus()
-                progressbar.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            if (userPassword.length !in 8..15) {
-                password.error = "Password must be 8-15 characters long"
-                password.requestFocus()
-                progressbar.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            if (userPassword != userConfirmPassword) {
-                password.error = "Password and confirm password do not match."
-                password.requestFocus()
-                progressbar.visibility = View.GONE
-                login.visibility = View.VISIBLE
-                return@setOnClickListener
-            }
-
-            RegisterUser()
-
         }
     }
     fun RegisterUser(){
@@ -158,7 +89,7 @@ class SignUpActivity : AppCompatActivity() {
         val userName = name.text.toString()
         val userSurname = surname.text.toString()
         val userPassword = password.text.toString()
-
+       // val progressbar:ProgressBar
         progressbar.visibility = View.VISIBLE
         login.visibility = View.INVISIBLE
 
@@ -212,25 +143,73 @@ class SignUpActivity : AppCompatActivity() {
 
 
     }
-    // Add this validateInput method
-    fun validateInput(): Boolean {
-        val email = workEmail.text.toString()
-        val name = name.text.toString()
-        val surname = surname.text.toString()
-        val password = password.text.toString()
-        val confirmPassword = confirmPassword.text.toString()
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(name) || TextUtils.isEmpty(surname) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword)) {
+    fun validateInput(userEmail : String, userName: String, userSurname: String, userPassword: String, userConfirmPassword: String): Boolean {
+
+        //the code was taken from Medium
+        //Link: https://betulnecanli.medium.com/regular-expressions-regex-in-kotlin-a2eaeb2cd113
+        //author: Betul necanli
+        //Accessed 20 November 2023
+        val numberRegex = Regex(".*\\d.*")
+        val specialCharRegex = Regex(".*[@#\$!].*")
+        val capitalLetterregex = Regex("[A-Z]")
+
+
+        if (TextUtils.isEmpty(userEmail) || TextUtils.isEmpty(userName) || TextUtils.isEmpty(userSurname) || TextUtils.isEmpty(userPassword) || TextUtils.isEmpty(userConfirmPassword)) {
             Toast.makeText(this, "Please fill in all the fields.", Toast.LENGTH_SHORT).show()
-            progressbar.visibility = View.GONE
-            login.visibility = View.VISIBLE
             return false
         }
 
-        if (password != confirmPassword) {
-            Toast.makeText(this, "Password and confirm password do not match.", Toast.LENGTH_SHORT).show()
-            progressbar.visibility = View.GONE
-            login.visibility = View.VISIBLE
+        if (TextUtils.isEmpty(userName)) {
+            name.error = "Please enter your name"
+            name.requestFocus()
+            return false
+        }
+
+        if (TextUtils.isEmpty(userSurname)) {
+            surname.error = "Please enter your surname"
+            surname.requestFocus()
+
+            return false
+        }
+
+        if (TextUtils.isEmpty(userEmail) || !Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
+            workEmail.error = "Please enter a valid email address"
+            workEmail.requestFocus()
+
+            return false
+        }
+        if (!capitalLetterregex.containsMatchIn(userPassword)) {
+            password.error = "Password must contain at least one capital letter."
+            password.requestFocus()
+
+            return false
+        }
+        if (!userPassword.matches(numberRegex)) {
+            password.error = "Password must contain at least one number"
+            password.requestFocus()
+
+            return false
+        }
+
+        if (!userPassword.matches(specialCharRegex)) {
+            password.error = "Password must contain at least one of @, #, $, !"
+            password.requestFocus()
+
+            return false
+        }
+
+        if (userPassword.length !in 8..15) {
+            password.error = "Password must be 8-15 characters long"
+            password.requestFocus()
+
+            return false
+        }
+
+        if (userPassword != userConfirmPassword) {
+            password.error = "Password and confirm password do not match."
+            password.requestFocus()
+
             return false
         }
 
